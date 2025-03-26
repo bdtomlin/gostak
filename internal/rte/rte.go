@@ -15,10 +15,10 @@ func Route() {
 	fs := http.FileServer(http.Dir("./assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets", fs))
 
-	browser := middleware.Chain(middleware.Html, middleware.SetHeaderResponse, middleware.Gzip)
-	handleFunc("/", handlers.GetIndex, browser)
-	handleFunc("GET /users/{id}", handlers.GetUser, browser)
+	browser := middleware.NewChain(middleware.Html, middleware.SetHeaderResponse, middleware.Gzip)
+	browser.HandleFunc("/", handlers.GetIndex)
+	browser.HandleFunc("GET /users/{id}", handlers.GetUser)
 
-	browserAuth := middleware.Chain(browser, middleware.Auth)
-	handleFunc("GET /authors", handlers.GetAuthors, browserAuth)
+	browserAuth := middleware.NewChain(browser.MwChain, middleware.Auth)
+	browserAuth.HandleFunc("GET /authors", handlers.GetAuthors)
 }
