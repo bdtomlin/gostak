@@ -1,0 +1,8 @@
+
+.env*
+.flaskenv*
+!.env.project
+!.env.vault
+**/*_templ.txt
+assets
+bin/tailwindcss

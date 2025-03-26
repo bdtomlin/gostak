@@ -1,0 +1,13 @@
+package pages
+
+import "strconv"
+import "github.com/bdtomlin/gostak/htm/layouts"
+
+templ User(id int) {
+	@layouts.Main() {
+		<div>User id is: { strconv.Itoa(id) }</div>
+		for tid := range(id) {
+			<div>Counting up to id: { strconv.Itoa(tid + 1) }</div>
+		}
+	}
+}

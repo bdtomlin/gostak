@@ -1,0 +1,26 @@
+package layouts
+
+import "github.com/bdtomlin/gostak/htm"
+
+templ Main() {
+	<html>
+		<head>
+			<link rel="stylesheet" href={ htm.AssetPath("/css/styles.css") }/>
+		</head>
+		<body>
+			<div>Navigation</div>
+			<nav>
+				<a href="/">Index</a>
+				<a href="/authors">Authors</a>
+				<a href="/users/10">User 1</a>
+				<a href="/slekfjoskejfsdfj">404</a>
+			</nav>
+			<div>Start Content</div>
+			<div>
+				{ children... }
+			</div>
+			<div>End Content</div>
+			<footer>Main Layout Footer</footer>
+		</body>
+	</html>
+}

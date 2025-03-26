@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+go test -parallel 5 -v "$@" | sed \
+    -e 's/FAIL/\x1b[31mFAIL\x1b[0m/g' \
+    -e 's/PASS/\x1b[32mPASS\x1b[0m/g' \
+    -e 's/SKIP/\x1b[33mSKIP\x1b[0m/g'

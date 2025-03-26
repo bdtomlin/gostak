@@ -1,0 +1,22 @@
+package pages
+
+import "github.com/bdtomlin/gostak/htm/layouts"
+import "github.com/bdtomlin/gostak/htm/components"
+import "github.com/bdtomlin/gostak/htm"
+
+templ Index() {
+	@layouts.Main() {
+		<div class="bg-gray-300">
+			<h1>Index Page</h1>
+			@components.Button() {
+				<strong>Button Text</strong>
+			}
+			<div>
+				{ htm.AssetPath("/css/styles.css") }
+			</div>
+			<div>
+				{ htm.AssetPath("/css/styles.css") }
+			</div>
+		</div>
+	}
+}

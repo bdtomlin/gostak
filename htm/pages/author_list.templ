@@ -1,0 +1,12 @@
+package pages
+
+import "github.com/bdtomlin/gostak/model"
+import "github.com/bdtomlin/gostak/htm/layouts"
+
+templ AuthorList(authors []model.Author) {
+	@layouts.Main() {
+		for _, a := range(authors) {
+			<div>Author id is: { a.Name }</div>
+		}
+	}
+}

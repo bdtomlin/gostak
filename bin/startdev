@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# this script is intended to be called by the dev script located at
+# `~/config/bin/dev` which should be in my path
+# running dev in the directory of this app will spin up a new
+# tmux window with the server and database server running and then
+# enter into the distrobox in the current tmux window.
+# When closing either it will stop the both servers. You can also use
+# `~/config/bin/enter` to create a separate entry into the dbox and
+# exit from that without affecting the running servers.
+#
+source .env
+podman run --replace --name "$DBOX_DB_NAME" -e POSTGRES_PASSWORD="$PGPASSWORD" -v "$PGDATA_DIR:/var/lib/postgresql/data:Z" -p 5432:5432 docker.io/library/postgres > log/db.log 2>&1 &
+# distrobox-enter "$DBOX_NAME" -- templ generate --include-timestamp --watch --proxy='http://localhost:8888' --cmd='go run .' > log/app.log 2>&1 &
+# distrobox-enter "$DBOX_NAME" -- make live
+#
+# distrobox-enter "$DBOX_NAME" -- \
+#   wgo -file=.go -file=.json -file=.templ -xfile=_templ.go templ generate :: ./bin/tailwindcss -i ./input.css -o ./static/css/styles.css :: go run main.go
+
+# distrobox-enter "$DBOX_NAME" -- \
+# wgo -file=.zzz templ generate --watch --proxy="http://localhost:8888" --cmd="go run ." \
+# :: wgo -postpone -file=.json templ generate --notify-proxy
+
+distrobox-enter "$DBOX_NAME" -- \
+  wgo -file=.go -file=.templ -file="^assetsSrc/" -xfile=_templ.go \
+  templ generate \
+  :: ./bin/tailwindcss -i ./input.css -o ./assetsSrc/css/styles.css \
+  :: go run tools/createmanifest.go \
+  :: go run tools/fingerprint.go \
+  :: go run .
+
+
+  # :: wgo templ generate --watch --proxy="http://localhost:8888" --cmd="go run ." 
+  # :: wgo -file=.go -file=.json -xfile=_templ.go templ generate --notify-proxy \
+  # :: ./bin/tailwindcss -i ./input.css -o ./static/css/styles.css 
+# moar log/app.log
+trap "distrobox stop -Y $DBOX_NAME && podman stop $DBOX_DB_NAME" EXIT
+

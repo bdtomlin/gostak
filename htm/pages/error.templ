@@ -1,0 +1,9 @@
+package pages
+
+import "strconv"
+
+templ Error(status int) {
+	<div>
+		<h1>Error: { strconv.Itoa(status) }</h1>
+	</div>
+}
