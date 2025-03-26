@@ -1,0 +1,22 @@
+package pages
+
+import "github.com/bdtomlin/gostak/internal/htm/layouts"
+import "github.com/bdtomlin/gostak/internal/htm/components"
+import "github.com/bdtomlin/gostak/internal/assets"
+
+templ Index() {
+	@layouts.Default() {
+		<div class="bg-teal-200">
+			<h1>Index Page</h1>
+			@components.Button() {
+				<strong>Button Text</strong>
+			}
+			<div>
+				{ assets.Path("/css/styles.css") }
+			</div>
+			<div>
+				{ assets.Path("/css/styles.css") }
+			</div>
+		</div>
+	}
+}

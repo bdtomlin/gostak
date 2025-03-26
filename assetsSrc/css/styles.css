@@ -6,7 +6,7 @@
     'Noto Color Emoji';
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
-    --color-gray-300: oklch(0.872 0.01 258.338);
+    --color-teal-200: oklch(0.91 0.096 180.426);
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -157,13 +157,10 @@
   .relative {
     position: relative;
   }
-  .static {
-    position: static;
-  }
   .table {
     display: table;
   }
-  .bg-gray-300 {
-    background-color: var(--color-gray-300);
+  .bg-teal-200 {
+    background-color: var(--color-teal-200);
   }
 }

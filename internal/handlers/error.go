@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/bdtomlin/gostak/htm/pages"
+	"github.com/bdtomlin/gostak/internal/htm/pages"
 )
 
 func Error(w http.ResponseWriter, r *http.Request, status int) {

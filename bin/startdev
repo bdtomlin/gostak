@@ -27,7 +27,7 @@ distrobox-enter "$DBOX_NAME" -- \
   :: ./bin/tailwindcss -i ./input.css -o ./assetsSrc/css/styles.css \
   :: go run tools/createmanifest.go \
   :: go run tools/fingerprint.go \
-  :: go run .
+  :: go run cmd/server/main.go
 
 
   # :: wgo templ generate --watch --proxy="http://localhost:8888" --cmd="go run ." 

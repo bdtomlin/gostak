@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/bdtomlin/gostak/htm/pages"
+	"github.com/bdtomlin/gostak/internal/htm/pages"
 )
 
 type getUserParams struct{}

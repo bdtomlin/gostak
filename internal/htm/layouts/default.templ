@@ -1,11 +1,11 @@
 package layouts
 
-import "github.com/bdtomlin/gostak/htm"
+import "github.com/bdtomlin/gostak/internal/assets"
 
-templ Main() {
+templ Default() {
 	<html>
 		<head>
-			<link rel="stylesheet" href={ htm.AssetPath("/css/styles.css") }/>
+			<link rel="stylesheet" href={ assets.Path("/css/styles.css") }/>
 		</head>
 		<body>
 			<div>Navigation</div>

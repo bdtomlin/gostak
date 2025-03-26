@@ -3,7 +3,7 @@ package repo
 import (
 	"fmt"
 
-	"github.com/bdtomlin/gostak/model"
+	"github.com/bdtomlin/gostak/internal/model"
 )
 
 func InsertAuthor(a *model.Author) (*model.Author, error) {

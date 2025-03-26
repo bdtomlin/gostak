@@ -8,9 +8,9 @@ package pages
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/bdtomlin/gostak/htm/layouts"
-import "github.com/bdtomlin/gostak/htm/components"
-import "github.com/bdtomlin/gostak/htm"
+import "github.com/bdtomlin/gostak/internal/htm/layouts"
+import "github.com/bdtomlin/gostak/internal/htm/components"
+import "github.com/bdtomlin/gostak/internal/assets"
 
 func Index() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -45,7 +45,7 @@ func Index() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"bg-gray-300\"><h1>Index Page</h1>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"bg-teal-200\"><h1>Index Page</h1>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -76,9 +76,9 @@ func Index() templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(htm.AssetPath("/css/styles.css"))
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(assets.Path("/css/styles.css"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `htm/pages/index.templ`, Line: 15, Col: 38}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/htm/pages/index.templ`, Line: 15, Col: 36}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -89,9 +89,9 @@ func Index() templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var5 string
-			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(htm.AssetPath("/css/styles.css"))
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(assets.Path("/css/styles.css"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `htm/pages/index.templ`, Line: 18, Col: 38}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/htm/pages/index.templ`, Line: 18, Col: 36}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -103,7 +103,7 @@ func Index() templ.Component {
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = layouts.Main().Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = layouts.Default().Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,10 +1,10 @@
 package pages
 
 import "strconv"
-import "github.com/bdtomlin/gostak/htm/layouts"
+import "github.com/bdtomlin/gostak/internal/htm/layouts"
 
 templ User(id int) {
-	@layouts.Main() {
+	@layouts.Default() {
 		<div>User id is: { strconv.Itoa(id) }</div>
 		for tid := range(id) {
 			<div>Counting up to id: { strconv.Itoa(tid + 1) }</div>
