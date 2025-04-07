@@ -8,6 +8,7 @@ templ Index() {
 	@layouts.Default() {
 		<div class="bg-teal-200">
 			<h1>Index Page</h1>
+			<h2 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h2>
 			@components.Button() {
 				<strong>Button Text</strong>
 			}

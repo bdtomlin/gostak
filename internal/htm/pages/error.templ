@@ -1,9 +1,19 @@
 package pages
 
 import "strconv"
+import "github.com/bdtomlin/gostak/internal/assets"
 
 templ Error(status int) {
-	<div>
-		<h1>Error: { strconv.Itoa(status) }</h1>
-	</div>
+	<html>
+		<head>
+			<link rel="stylesheet" href={ assets.Path("/css/styles.css") }/>
+			<script defer src={ assets.Path("/js/htmx.min.js") }></script>
+			<script defer src={ assets.Path("/js/alpine.min.js") }></script>
+		</head>
+		<body>
+			<div>
+				<h1>Error: { strconv.Itoa(status) }</h1>
+			</div>
+		</body>
+	</html>
 }
