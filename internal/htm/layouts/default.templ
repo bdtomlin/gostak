@@ -1,41 +1,16 @@
 package layouts
 
-import "github.com/bdtomlin/gostak/internal/assets"
-
 templ Default() {
-	<html>
-		<head>
-			<link rel="stylesheet" href={ assets.Path("/css/styles.css") }/>
-			<script defer src={ assets.Path("/js/htmx.min.js") }></script>
-			<script defer src={ assets.Path("/js/alpine.min.js") }></script>
-			<meta
-				name="htmx-config"
-				content='{
-          "responseHandling":[
-              {"code":"204", "swap": false},
-              {"code":"[23]..", "swap": true},
-              {"code":"422", "swap": true},
-              {"code":"404", "swap": true},
-              {"code":"[45]..", "swap": false, "error":true},
-              {"code":"...", "swap": true}
-          ]
-        }'
-			/>
-		</head>
-		<body hx-boost="true">
-			<div>Navigation</div>
-			<nav>
-				<a href="/">Index</a>
-				<a href="/authors">Authors</a>
-				<a href="/users/10">User 1</a>
-				<a href="/slekfjoskejfsdfj">404</a>
-			</nav>
-			<div>Start Content</div>
-			<div>
-				{ children... }
-			</div>
-			<div>End Content</div>
-			<footer>Main Layout Footer</footer>
-		</body>
-	</html>
+	@Base() {
+		<div x-data="{open: false}">
+			@OffCanvasMenu()
+			@StaticDesktopMenu()
+			@StickyTop()
+			<main class="py-10 lg:pl-72">
+				<div class="px-4 sm:px-6 lg:px-8">
+					{ children... }
+				</div>
+			</main>
+		</div>
+	}
 }

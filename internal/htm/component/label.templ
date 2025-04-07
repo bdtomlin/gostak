@@ -1,0 +1,20 @@
+package component
+
+templ Label(labelFor string, text string) {
+	<div class="flex items-center justify-between">
+		<label for={ labelFor } class="block text-sm/6 font-medium text-white">
+			{ text }
+		</label>
+		{ children... }
+	</div>
+}
+
+templ LabelLink(labelFor string, text string, href string, linkText string) {
+	@Label(labelFor, text) {
+		<div class="text-sm">
+			@Link(href) {
+				{ linkText }
+			}
+		</div>
+	}
+}
