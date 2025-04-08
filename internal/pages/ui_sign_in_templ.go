@@ -8,10 +8,10 @@ package pages
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/bdtomlin/gostak/internal/htm/layouts"
-import c "github.com/bdtomlin/gostak/internal/htm/component"
+import "github.com/bdtomlin/gostak/internal/layouts"
+import c "github.com/bdtomlin/gostak/internal/component"
 
-func UiSignUp() templ.Component {
+func UiSignIn() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -44,15 +44,15 @@ func UiSignUp() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!--\n      This example requires updating your template:\n\n      ```\n      <html class=\"h-full bg-gray-900\">\n      <body class=\"h-full\">\n      ```\n    --> <div class=\"flex min-h-full flex-col justify-center px-6 py-12 lg:px-8\"><div class=\"sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign Up Now</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\"><form class=\"space-y-6\" action=\"#\" method=\"POST\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<!--\n      This example requires updating your template:\n\n      ```\n      <html class=\"h-full bg-gray-900\">\n      <body class=\"h-full\">\n      ```\n    --> <div class=\"flex min-h-full flex-col justify-center px-6 py-12 lg:px-8\"><div class=\"sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign in to your account</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\"><form class=\"space-y-6\" action=\"#\" method=\"POST\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			templ_7745c5c3_Err = c.Input(
 				"email",
 				c.InputAttrs{
-					Value: "",
 					Label: c.Label("email", "Email address"),
+					Value: "",
 				},
 			).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
@@ -62,7 +62,7 @@ func UiSignUp() templ.Component {
 				"password",
 				c.InputAttrs{
 					Type:         "password",
-					Label:        c.Label("password", "Password"),
+					Label:        c.LabelLink("password", "Password", "#", "Forgot Password?"),
 					Autocomplete: "current-password",
 				},
 			).Render(ctx, templ_7745c5c3_Buffer)
@@ -85,7 +85,7 @@ func UiSignUp() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "Sign Up")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "Sign In")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -95,7 +95,7 @@ func UiSignUp() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div></form><p class=\"mt-10 text-center text-sm/6 text-gray-400\">Already a member? ")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div></form><p class=\"mt-10 text-center text-sm/6 text-gray-400\">Not a member? ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -111,13 +111,13 @@ func UiSignUp() templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "Sign In Here")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "Sign Up Here")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = c.Link("/ui/sign-in").Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = c.Link("/ui/sign-up").Render(templ.WithChildren(ctx, templ_7745c5c3_Var4), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

@@ -1,0 +1,115 @@
+package pages
+
+import "github.com/bdtomlin/gostak/internal/layouts"
+import c "github.com/bdtomlin/gostak/internal/component"
+
+templ UiListMailers() {
+	@layouts.Default() {
+		@c.Table() {
+			@c.ColGroup("w-full sm:w-4/12", "lg:w-4/12", "lg:w-2/12", "lg:w-1/12", "lg:w-1/12")
+			@c.Thead() {
+				@c.Tr() {
+					@c.Th(c.ThAttrs{}) {
+						User 
+					}
+					@c.Th(c.ThAttrs{Class: "hidden sm:table-cell"}) {
+						Commit
+					}
+					@c.Th(c.ThAttrs{}) {
+						Status
+					}
+					@c.Th(c.ThAttrs{Class: "hidden md:table-cell"}) {
+						Status Duration
+					}
+					@c.Th(c.ThAttrs{Class: "hidden sm:table-cell"}) {
+						Deployed At
+					}
+				}
+			}
+			@c.Tbody() {
+				{{ link := "/whatever" }}
+				for _, row := range(data()) {
+					@c.Tr() {
+						@c.Td(c.TdAttrs{Href: link}) {
+							{ row.User }
+						}
+						@c.Td(c.TdAttrs{Href: link}) {
+							{ row.Commit }
+						}
+						@c.Td(c.TdAttrs{}) {
+							{ row.Duration }
+						}
+						@c.Td(c.TdAttrs{}) {
+							{ row.Status }
+						}
+						@c.Td(c.TdAttrs{}) {
+							{ row.DeployedAt }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+type rowData struct {
+	User       string
+	Commit     string
+	Status     string
+	Duration   string
+	DeployedAt string
+}
+
+func data() []rowData {
+	return []rowData{
+		rowData{
+			User:       "Bryan Tomlin",
+			Commit:     "woijeiejfoi34432",
+			Status:     "Completed",
+			Duration:   "25s",
+			DeployedAt: "5 minutes ago",
+		},
+		rowData{
+			User:       "Bryan Tomlin",
+			Commit:     "woijeiejfoi34432",
+			Status:     "Completed",
+			Duration:   "25s",
+			DeployedAt: "5 minutes ago",
+		},
+		rowData{
+			User:       "Bryan Tomlin",
+			Commit:     "woijeiejfoi34432",
+			Status:     "Completed",
+			Duration:   "25s",
+			DeployedAt: "5 minutes ago",
+		},
+		rowData{
+			User:       "Bryan Tomlin",
+			Commit:     "woijeiejfoi34432",
+			Status:     "Completed",
+			Duration:   "25s",
+			DeployedAt: "5 minutes ago",
+		},
+		rowData{
+			User:       "Bryan Tomlin",
+			Commit:     "woijeiejfoi34432",
+			Status:     "Completed",
+			Duration:   "25s",
+			DeployedAt: "5 minutes ago",
+		},
+		rowData{
+			User:       "Bryan Tomlin",
+			Commit:     "woijeiejfoi34432",
+			Status:     "Completed",
+			Duration:   "25s",
+			DeployedAt: "5 minutes ago",
+		},
+		rowData{
+			User:       "Bryan Tomlin",
+			Commit:     "woijeiejfoi34432",
+			Status:     "Completed",
+			Duration:   "25s",
+			DeployedAt: "5 minutes ago",
+		},
+	}
+}

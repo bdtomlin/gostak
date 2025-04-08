@@ -9,7 +9,7 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import "github.com/bdtomlin/gostak/internal/model"
-import "github.com/bdtomlin/gostak/internal/htm/layouts"
+import "github.com/bdtomlin/gostak/internal/layouts"
 
 func AuthorList(authors []model.Author) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -52,7 +52,7 @@ func AuthorList(authors []model.Author) templ.Component {
 				var templ_7745c5c3_Var3 string
 				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(a.Name)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/htm/pages/author_list.templ`, Line: 9, Col: 30}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/pages/author_list.templ`, Line: 9, Col: 30}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 				if templ_7745c5c3_Err != nil {
