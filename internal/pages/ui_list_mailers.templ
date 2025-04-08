@@ -36,13 +36,13 @@ templ UiListMailers() {
 						@c.Td(c.TdAttrs{Href: link}) {
 							{ row.Commit }
 						}
-						@c.Td(c.TdAttrs{}) {
+						@c.Td(c.TdAttrs{Href: link}) {
 							{ row.Duration }
 						}
-						@c.Td(c.TdAttrs{}) {
+						@c.Td(c.TdAttrs{Href: link}) {
 							{ row.Status }
 						}
-						@c.Td(c.TdAttrs{}) {
+						@c.Td(c.TdAttrs{Href: link}) {
 							{ row.DeployedAt }
 						}
 					}

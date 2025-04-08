@@ -40,18 +40,18 @@ type TdAttrs struct {
 }
 
 templ Td(attrs TdAttrs) {
-	{{ classes := "py-4 pl-4 pr-8 sm:pl-6 lg:pl-8 text-neutral-300" }}
-	if attrs.Href != "" {
-		<td>
+	{{ classes := "block py-4 pl-4 pr-8 sm:pl-6 lg:pl-8 text-neutral-300" }}
+	<td>
+		if attrs.Href != "" {
 			<a href={ templ.URL(attrs.Href) } class={ classes }>
 				{ children... }
 			</a>
-		</td>
-	} else {
-		<td class={ classes }>
-			{ children... }
-		</td>
-	}
+		} else {
+			<span class={ classes }>
+				{ children... }
+			</span>
+		}
+	</td>
 }
 
 templ Tbody() {
