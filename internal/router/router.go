@@ -30,5 +30,5 @@ func Route() {
 	browser.HandleFunc("/ui/mailers", handler.UiListMailers)
 
 	browserAuth := middleware.NewChain(browser.MwChain, middleware.Auth)
-	browserAuth.HandleFunc("GET /authors", handler.GetAuthors)
+	browserAuth.HandleFunc("GET /users", handler.ListUsers)
 }

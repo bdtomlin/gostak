@@ -1,0 +1,14 @@
+package pages
+
+import "github.com/bdtomlin/gostak/internal/model"
+import "github.com/bdtomlin/gostak/internal/layouts"
+
+templ ListUsers(users []model.User) {
+	@layouts.Default() {
+		<div class="text-neutral-200">
+			for _, u := range(users) {
+				<div>User id is: { u.ID }</div>
+			}
+		</div>
+	}
+}

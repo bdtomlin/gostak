@@ -9,7 +9,7 @@ import (
 func GetIndex(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		// Return 404 for anything other than "/"
-		Error(w, r, http.StatusNotFound)
+		Error(w, r, http.StatusNotFound, "")
 		return
 	}
 	pages.Index().Render(r.Context(), w)
