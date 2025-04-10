@@ -15,7 +15,13 @@ import (
 )
 
 func main() {
-	repo.DB = sqlx.MustConnect("postgres", fmt.Sprintf("user=%v dbname=%v password=%v sslmode=%v", os.Getenv("POSTGRESQL_USERNAME"), os.Getenv("DATABASE_NAME"), os.Getenv("PGPASSWORD"), os.Getenv("DBSSLMODE")))
+	dbConnString := fmt.Sprintf(
+		"user=%v dbname=%v password=%v sslmode=%v",
+		os.Getenv("POSTGRESQL_USERNAME"), os.Getenv("DATABASE_NAME"),
+		os.Getenv("PGPASSWORD"),
+		os.Getenv("DBSSLMODE"),
+	)
+	repo.DB = sqlx.MustConnect("postgres", dbConnString)
 
 	assets.LoadAssetMap()
 	router.Route()
