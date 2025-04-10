@@ -1,9 +1,9 @@
 -- +goose Up
 -- +goose StatementBegin
 create table users (
-	id UUID PRIMARY KEY DEFAULT generate_uuid_v7(),
-  inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+	id UUID PRIMARY KEY DEFAULT uuidv7(),
+  inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null, 
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
   first_name text not null,
   last_name text not null,
   email text unique not null
