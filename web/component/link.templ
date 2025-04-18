@@ -1,0 +1,7 @@
+package component
+
+templ Link(href string) {
+	<a href={ templ.SafeURL(href) } class="font-semibold text-teal-500 hover:text-teal-400">
+		{ children... }
+	</a>
+}
