@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/bdtomlin/gostak/internal/pages"
+	"github.com/bdtomlin/gostak/web/page"
 )
 
 type getUserParams struct{}
@@ -15,5 +15,5 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	pages.User(id).Render(r.Context(), w)
+	page.User(id).Render(r.Context(), w)
 }

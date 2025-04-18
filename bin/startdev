@@ -24,10 +24,9 @@ podman run --replace --name "$DBOX_DB_NAME" -e POSTGRES_PASSWORD="$PGPASSWORD" -
 distrobox-enter "$DBOX_NAME" -- \
   wgo -file=.go -file=.templ -file="^assetsSrc/" -xfile=_templ.go \
   templ generate \
-  :: ./bin/tailwindcss -i ./input.css -o ./assetsSrc/css/styles.css \
-  :: go run tools/createmanifest.go \
-  :: go run tools/fingerprint.go \
-  :: go run cmd/server/main.go
+  :: ./bin/tailwindcss -i ./input.css -o ./web/assetsSrc/css/styles.css \
+  :: go run ./cmd/fingerprint/ \
+  :: go run ./cmd/server/
 
 
   # :: wgo templ generate --watch --proxy="http://localhost:8888" --cmd="go run ." 

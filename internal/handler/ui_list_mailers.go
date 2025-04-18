@@ -3,9 +3,9 @@ package handler
 import (
 	"net/http"
 
-	"github.com/bdtomlin/gostak/internal/pages"
+	"github.com/bdtomlin/gostak/web/page"
 )
 
 func UiListMailers(w http.ResponseWriter, r *http.Request) {
-	pages.UiListMailers().Render(r.Context(), w)
+	page.UiListMailers().Render(r.Context(), w)
 }

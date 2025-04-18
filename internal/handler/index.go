@@ -3,7 +3,7 @@ package handler
 import (
 	"net/http"
 
-	"github.com/bdtomlin/gostak/internal/pages"
+	"github.com/bdtomlin/gostak/web/page"
 )
 
 func GetIndex(w http.ResponseWriter, r *http.Request) {
@@ -12,5 +12,5 @@ func GetIndex(w http.ResponseWriter, r *http.Request) {
 		Error(w, r, http.StatusNotFound, "")
 		return
 	}
-	pages.Index().Render(r.Context(), w)
+	page.Index().Render(r.Context(), w)
 }

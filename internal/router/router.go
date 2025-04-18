@@ -7,13 +7,15 @@ import (
 	"github.com/bdtomlin/gostak/internal/router/middleware"
 )
 
-func handleFunc(path string, handler http.HandlerFunc, chain func(http.HandlerFunc) http.HandlerFunc) {
-	http.HandleFunc(path, chain(handler))
+func NewRouter() {
+	mux := http.NewServeMux()
+	fs := http.FileServer(http.Dir("./web/assets"))
+	mux.Handle("/web/assets/", http.StripPrefix("/web/assets", fs))
 }
 
 func Route() {
-	fs := http.FileServer(http.Dir("./assets"))
-	http.Handle("/assets/", http.StripPrefix("/assets", fs))
+	fs := http.FileServer(http.Dir("./web/assets"))
+	http.Handle("/web/assets/", http.StripPrefix("/web/assets", fs))
 
 	browser := middleware.NewChain(
 		middleware.Html,

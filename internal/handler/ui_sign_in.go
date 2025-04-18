@@ -3,9 +3,9 @@ package handler
 import (
 	"net/http"
 
-	"github.com/bdtomlin/gostak/internal/pages"
+	"github.com/bdtomlin/gostak/web/page"
 )
 
 func UiSignIn(w http.ResponseWriter, r *http.Request) {
-	pages.UiSignIn().Render(r.Context(), w)
+	page.UiSignIn().Render(r.Context(), w)
 }

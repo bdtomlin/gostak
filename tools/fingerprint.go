@@ -1,4 +1,4 @@
-package main
+package tools
 
 import (
 	"encoding/json"
@@ -10,8 +10,8 @@ import (
 
 var assets = make(map[string]string)
 
-func main() {
-	jsonData, err := os.ReadFile("assetsManifest.json")
+func Fingerprint() {
+	jsonData, err := os.ReadFile("web/assetsManifest.json")
 	if err != nil {
 		fmt.Println("Error reading file:", err)
 		panic("Must have a manifest.json file")
@@ -20,16 +20,16 @@ func main() {
 	err = json.Unmarshal(jsonData, &assets)
 	if err != nil {
 		fmt.Println("Error parsing JSON:", err)
-		panic("Must have a valid manifest.json file")
+		panic("Must have a valid web/manifest.json file")
 	}
 
-	err = os.RemoveAll("assets")
+	err = os.RemoveAll("web/assets")
 	if err != nil {
 		panic(err)
 	}
 
 	for src, dest := range assets {
-		src, dest = "assetsSrc"+src, "assets"+dest
+		src, dest = "web/assetsSrc"+src, "web/assets"+dest
 		srcFile, err := os.Open(src)
 		if err != nil {
 			panic(fmt.Errorf("open src: %v", err))

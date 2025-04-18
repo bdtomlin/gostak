@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/bdtomlin/gostak/internal/pages"
 	"github.com/bdtomlin/gostak/internal/repo"
+	"github.com/bdtomlin/gostak/web/page"
 )
 
 func ListUsers(w http.ResponseWriter, r *http.Request) {
@@ -17,5 +17,5 @@ func ListUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pages.ListUsers(users).Render(r.Context(), w)
+	page.ListUsers(users).Render(r.Context(), w)
 }

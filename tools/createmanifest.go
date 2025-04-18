@@ -1,4 +1,4 @@
-package main
+package tools
 
 import (
 	"crypto/md5"
@@ -11,10 +11,10 @@ import (
 	"strings"
 )
 
-func main() {
-	srcDir := "assetsSrc"
+func CreateManifest() {
+	srcDir := "web/assetsSrc"
 	fileMap := make(map[string]string)
-	outputFile := "assetsManifest.json"
+	outputFile := "web/assetsManifest.json"
 
 	// Process directory recursively
 	err := processDirectory(srcDir, srcDir, fileMap)
