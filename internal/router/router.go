@@ -7,15 +7,23 @@ import (
 )
 
 func NewRouter() http.Handler {
-	mux := http.NewServeMux()
+	router := http.NewServeMux()
 	fs := http.FileServer(http.Dir("./web/assets"))
-	mux.Handle("/web/assets/", http.StripPrefix("/web/assets", fs))
-	mux.Handle("/", handler.NewIndexHandler())
-	mux.Handle("GET /users/{id}", handler.NewGetUser())
-	// UI
-	mux.HandleFunc("/ui/sign-up", handler.UiSignUp)
-	mux.HandleFunc("/ui/sign-in", handler.UiSignIn)
-	mux.HandleFunc("/ui/mailers", handler.UiListMailers)
+	router.Handle("/web/assets/", http.StripPrefix("/web/assets", fs))
 
-	return MwTemplContext(MwGzip(MwLogger(mux)))
+	browserMw := NewMiddleware(MwTemplContext, MwGzip, MwLogger)
+	pubrouter := http.NewServeMux()
+	router.Handle("/", browserMw(pubrouter))
+	pubrouter.Handle("/", handler.NewIndexHandler())
+	pubrouter.Handle("GET /users/{id}", handler.NewGetUser())
+
+	// UI
+	uiMw := NewMiddleware(browserMw, MwUi)
+	uirouter := http.NewServeMux()
+	router.Handle("/ui/", uiMw(uirouter))
+	uirouter.HandleFunc("/ui/sign-up", handler.UiSignUp)
+	uirouter.HandleFunc("/ui/sign-in", handler.UiSignIn)
+	uirouter.HandleFunc("/ui/mailers", handler.UiListMailers)
+
+	return router
 }
