@@ -1,4 +1,4 @@
-package middleware
+package router
 
 import (
 	"compress/gzip"
@@ -16,10 +16,10 @@ func (w GzipResponseWriter) Write(b []byte) (int, error) {
 	return w.Writer.Write(b)
 }
 
-func Gzip(next http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func MwGzip(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
-			next(w, r)
+			next.ServeHTTP(w, r)
 			return
 		}
 		w.Header().Set("Content-Encoding", "gzip")
@@ -29,5 +29,5 @@ func Gzip(next http.HandlerFunc) http.HandlerFunc {
 		// Create our custom response writer
 		gzw := GzipResponseWriter{Writer: gz, ResponseWriter: w}
 		next.ServeHTTP(gzw, r)
-	}
+	})
 }

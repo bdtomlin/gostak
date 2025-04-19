@@ -6,11 +6,17 @@ import (
 	"github.com/bdtomlin/gostak/web/page"
 )
 
-func GetIndex(w http.ResponseWriter, r *http.Request) {
+type Index struct{}
+
+func (i Index) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		// Return 404 for anything other than "/"
-		Error(w, r, http.StatusNotFound, "")
+		NewError404().ServeHTTP(w, r)
 		return
 	}
 	page.Index().Render(r.Context(), w)
+}
+
+func NewIndexHandler() Index {
+	return Index{}
 }

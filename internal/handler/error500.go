@@ -8,9 +8,16 @@ import (
 	"github.com/bdtomlin/gostak/web/page"
 )
 
-func Error500(w http.ResponseWriter, r *http.Request, message string) {
-	// slog.Error(message)
-	fmt.Fprintf(os.Stderr, "%v", message)
-	w.WriteHeader(500)
-	page.Error500(message).Render(r.Context(), w)
+type Error500 struct {
+	Message string
+}
+
+func (e Error500) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(os.Stderr, "%v", e.Message)
+	w.WriteHeader(http.StatusInternalServerError)
+	page.Error500(e.Message).Render(r.Context(), w)
+}
+
+func NewError500(message string) Error500 {
+	return Error500{Message: message}
 }

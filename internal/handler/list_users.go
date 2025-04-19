@@ -13,7 +13,7 @@ func ListUsers(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		// Return 500 for server errors
 		errMsg := fmt.Sprintf("%v", err)
-		Error500(w, r, errMsg)
+		NewError500(errMsg).ServeHTTP(w, r)
 		return
 	}
 
