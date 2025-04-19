@@ -16,6 +16,7 @@ func NewRouter() http.Handler {
 	router.Handle("/", browserMw(pubrouter))
 	pubrouter.Handle("/", handler.NewIndexHandler())
 	pubrouter.Handle("GET /users/{id}", handler.NewGetUser())
+	pubrouter.Handle("/users", handler.NewListUsers())
 
 	// UI
 	uiMw := NewMiddleware(browserMw, MwUi)

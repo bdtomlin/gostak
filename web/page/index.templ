@@ -1,29 +1,11 @@
 package page
 
 import "github.com/bdtomlin/gostak/web/layout"
-import "github.com/google/uuid"
-import "time"
-
-func genuuid() string {
-	u, err := uuid.NewV7()
-	if err != nil {
-		panic("uuid error")
-	}
-	time.Sleep(3 * time.Millisecond)
-	return u.String()
-}
 
 templ Index() {
 	@layout.Default() {
 		<div class="text-neutral-200">
-			<div>{ genuuid() }</div>
-			<div>{ genuuid() }</div>
-			<div>{ genuuid() }</div>
-			<div>{ genuuid() }</div>
-			<div>{ genuuid() }</div>
-			<div>{ genuuid() }</div>
-			<div>{ genuuid() }</div>
-			<div>{ genuuid() }</div>
+			<div>Index</div>
 		</div>
 	}
 }
