@@ -11,16 +11,17 @@ func NewRouter() http.Handler {
 	fs := http.FileServer(http.Dir("./web/assets/"))
 	mux.Handle("/web/assets/", http.StripPrefix("/web/assets/", fs))
 
-	bmw := chainMiddleware(MwTemplContext, MwGzip, MwLogger)
-	mux.Handle("/", bmw(handler.Index{}))
-	mux.Handle("GET /users/{id}", bmw(handler.GetUser{}))
-	mux.Handle("GET /users", bmw(handler.ListUsers{}))
+	bChain := newMiddlewareChain(mux, MwTemplContext, MwGzip, MwLogger)
+	bChain.HandleFunc("/", handler.Index)
+	bChain.HandleFunc("GET /users/{id}", handler.GetUser)
+	bChain.HandleFunc("GET /users", handler.ListUsers)
 
 	// UI
-	uimw := chainMiddleware(MwTemplContext, MwGzip, MwLogger, MwUi)
-	mux.Handle("GET /ui/sign-up", uimw(handler.UiSignUp{}))
-	mux.Handle("GET /ui/sign-in", uimw(handler.UiSignIn{}))
-	mux.Handle("GET /ui/mailers", uimw(handler.UiListMailers{}))
+	// uiChain := chainMiddleware(bChain, MwUi)
+	uiChain := newMiddlewareChain(mux, bChain.Middleware, MwUi)
+	uiChain.HandleFunc("GET /ui/sign-up", handler.UiSignUp)
+	uiChain.HandleFunc("GET /ui/sign-in", handler.UiSignIn)
+	uiChain.HandleFunc("GET /ui/mailers", handler.UiListMailers)
 
 	return mux
 }

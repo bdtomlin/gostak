@@ -8,9 +8,7 @@ import (
 	"github.com/bdtomlin/gostak/web/page"
 )
 
-type ListUsers struct{}
-
-func (lu ListUsers) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func ListUsers(w http.ResponseWriter, r *http.Request) {
 	users, err := repo.ListUsers()
 	if err != nil {
 		// Return 500 for server errors
