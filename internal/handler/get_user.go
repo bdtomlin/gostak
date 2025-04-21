@@ -19,7 +19,3 @@ func (gu GetUser) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	page.User(id).Render(r.Context(), w)
 }
-
-func NewGetUser() GetUser {
-	return GetUser{}
-}

@@ -16,7 +16,3 @@ func (i Index) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	page.Index().Render(r.Context(), w)
 }
-
-func NewIndexHandler() Index {
-	return Index{}
-}

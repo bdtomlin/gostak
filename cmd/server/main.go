@@ -24,7 +24,6 @@ func main() {
 	repo.DB = sqlx.MustConnect("postgres", dbConnString)
 
 	assets.LoadAssetMap()
-	// router.Route()
 	router := router.NewRouter()
 	slog.Info("Listening on :8888")
 	http.ListenAndServe(":8888", router)

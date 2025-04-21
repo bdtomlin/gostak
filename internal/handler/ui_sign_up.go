@@ -6,6 +6,9 @@ import (
 	"github.com/bdtomlin/gostak/web/page"
 )
 
-func UiSignUp(w http.ResponseWriter, r *http.Request) {
+type UiSignUp struct{}
+
+func (u UiSignUp) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	page.UiSignUp().Render(r.Context(), w)
+
 }

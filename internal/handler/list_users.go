@@ -21,7 +21,3 @@ func (lu ListUsers) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	page.ListUsers(users).Render(r.Context(), w)
 }
-
-func NewListUsers() ListUsers {
-	return ListUsers{}
-}
