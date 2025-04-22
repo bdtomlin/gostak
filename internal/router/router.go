@@ -21,6 +21,7 @@ func NewRouter() http.Handler {
 	// UI
 	uiChain := newMiddlewareChain(mux, bChain.Middleware, MwUi)
 	uiChain.HandleFunc("GET /ui/sign-up", handler.UiSignUp)
+	uiChain.HandleFunc("POST /ui/sign-up", handler.UiSignUp)
 	uiChain.HandleFunc("GET /ui/sign-in", handler.UiSignIn)
 	uiChain.HandleFunc("POST /ui/sign-in", handler.UiSignIn)
 	uiChain.HandleFunc("PUT /ui/sign-in", handler.UiSignIn)
