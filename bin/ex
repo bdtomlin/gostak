@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+distrobox-enter "$DBOX_NAME" -- go run ./cmd/ex/
