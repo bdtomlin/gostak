@@ -1,0 +1,31 @@
+package component
+
+type FormAttrs struct {
+	Action string
+	Method string
+	Class  string
+}
+
+templ Form(fa FormAttrs) {
+	{{ fa = formAttrDefaults(fa) }}
+	<form
+		action={ templ.URL(fa.Action) }
+		method={ fa.Method }
+		class={ fa.Class }
+	>
+		@CSRF()
+		{ children... }
+	</form>
+}
+
+templ CSRF() {
+	<input type="hidden" name="gorilla.csrf.Token" value={ ctx.Value("gorilla.csrf.Token").(string) }/>
+}
+
+func formAttrDefaults(fa FormAttrs) FormAttrs {
+	if fa.Method == "" {
+		fa.Method = "POST"
+	}
+
+	return fa
+}

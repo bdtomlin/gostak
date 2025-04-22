@@ -70,7 +70,7 @@ func Base() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\"></script><meta charset=\"UTF-8\"><meta name=\"htmx-config\" content=\"{\n          &#34;responseHandling&#34;:[\n              {&#34;code&#34;:&#34;204&#34;, &#34;swap&#34;: false},\n              {&#34;code&#34;:&#34;[23]..&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;422&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;404&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;500&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;[45]..&#34;, &#34;swap&#34;: false, &#34;error&#34;:true},\n              {&#34;code&#34;:&#34;...&#34;, &#34;swap&#34;: true}\n          ]\n        }\"></head><body class=\"h-full\" hx-boost=\"true\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\"></script><meta charset=\"UTF-8\"><meta name=\"htmx-config\" content=\"{\n          &#34;responseHandling&#34;:[\n              {&#34;code&#34;:&#34;204&#34;, &#34;swap&#34;: false},\n              {&#34;code&#34;:&#34;[23]..&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;422&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;404&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;500&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;[45]..&#34;, &#34;swap&#34;: false, &#34;error&#34;:true},\n              {&#34;code&#34;:&#34;...&#34;, &#34;swap&#34;: true}\n          ]\n        }\"></head><body class=\"h-full\" hx-boost=\"false\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
