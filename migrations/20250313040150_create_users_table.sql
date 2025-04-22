@@ -1,6 +1,6 @@
 -- +goose Up
 -- +goose StatementBegin
-create table users (
+CREATE TABLE users (
 	id UUID PRIMARY KEY DEFAULT uuidv7(),
   inserted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null, 
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null,
