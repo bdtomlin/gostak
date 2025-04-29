@@ -1,0 +1,54 @@
+package page
+
+import "github.com/bdtomlin/gostak/web/layout"
+import c "github.com/bdtomlin/gostak/web/component"
+
+templ SignIn() {
+	@layout.Auth() {
+		<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+			<img class="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&shade=600" alt="Your Company"/>
+			<h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
+		</div>
+		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+			@SignInForm("", "")
+			<p class="mt-10 text-center text-sm/6 text-gray-400">
+				Not a member?
+				@c.Link("/ui/sign-up") {
+					Sign Up Here
+				}
+			</p>
+		</div>
+	}
+}
+
+templ SignInForm(email, password string) {
+	@c.Form(c.FormAttrs{
+		Action:  "/sign-in",
+		Method:  "POST",
+		Class:   "space-y-6",
+		ID:      "sign-in-form",
+		XTarget: "sign-in-form app-notifications",
+	}) {
+		@c.Input(
+			c.InputAttrs{
+				Name:  "email",
+				Value: email,
+				Label: c.Label("email", "Email address"),
+			},
+		)
+		@c.Input(
+			c.InputAttrs{
+				Name:         "password",
+				Value:        password,
+				Type:         "password",
+				Label:        c.LabelLink("password", "Password", "#", "Forgot Password?"),
+				Autocomplete: "current-password",
+			},
+		)
+		<div>
+			@c.Button("default") {
+				Sign In
+			}
+		</div>
+	}
+}

@@ -7,26 +7,16 @@ templ Base() {
 	<html class="h-full bg-neutral-800">
 		<head>
 			<link rel="stylesheet" href={ assets.Path("/css/styles.css") }/>
-			<script defer src={ assets.Path("/js/htmx.min.js") }></script>
+			<script defer src={ assets.Path("/js/alpine-ajax.min.js") }></script>
 			<script defer src={ assets.Path("/js/alpine.min.js") }></script>
 			<meta charset="UTF-8"/>
-			<meta
-				name="htmx-config"
-				content='{
-          "responseHandling":[
-              {"code":"204", "swap": false},
-              {"code":"[23]..", "swap": true},
-              {"code":"422", "swap": true},
-              {"code":"404", "swap": true},
-              {"code":"500", "swap": true},
-              {"code":"[45]..", "swap": false, "error":true},
-              {"code":"...", "swap": true}
-          ]
-        }'
-			/>
 		</head>
 		<body class="h-full" hx-boost="false">
 			{ children... }
+			<!-- Global notification live region, render this permanently at the end of the document -->
+			<div aria-live="assertive" class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">
+				<div id="app-notifications" class="flex w-full flex-col items-center space-y-4 sm:items-end"></div>
+			</div>
 		</body>
 	</html>
 }

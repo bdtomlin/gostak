@@ -17,14 +17,13 @@ func NewRouter() http.Handler {
 	bChain.HandleFunc("GET /users", handler.ListUsers)
 	bChain.HandleFunc("GET /set-cookie", handler.SetCookie)
 	bChain.HandleFunc("GET /show-cookie", handler.ShowCookie)
+	bChain.HandleFunc("GET /sign-up", handler.GetSignUp)
+	bChain.HandleFunc("POST /sign-up", handler.PostSignUp)
+	bChain.HandleFunc("GET /sign-in", handler.GetSignIn)
+	bChain.HandleFunc("POST /sign-in", handler.PostSignIn)
 
 	// UI
 	uiChain := newMiddlewareChain(mux, bChain.Middleware, MwUi)
-	uiChain.HandleFunc("GET /ui/sign-up", handler.UiSignUp)
-	uiChain.HandleFunc("POST /ui/sign-up", handler.UiSignUp)
-	uiChain.HandleFunc("GET /ui/sign-in", handler.UiSignIn)
-	uiChain.HandleFunc("POST /ui/sign-in", handler.UiSignIn)
-	uiChain.HandleFunc("PUT /ui/sign-in", handler.UiSignIn)
 	uiChain.HandleFunc("GET /ui/mailers", handler.UiListMailers)
 
 	return mux

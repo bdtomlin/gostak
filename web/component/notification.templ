@@ -1,0 +1,103 @@
+package component
+
+templ Notification(variant string, msg string, description string) {
+	<div id="app-notifications" x-merge="append" class="flex w-full flex-col items-center space-y-4 sm:items-end">
+		<div
+			x-data="{
+                show: false,
+                progress: 100,
+                init() {
+                    this.$nextTick(() => this.show = true )
+                    setTimeout(() => this.progress = 0, 100)
+ 
+                    setTimeout(() => this.transitionOut(), 3000)
+                },
+                transitionOut() {
+                    this.show = false
+ 
+                    setTimeout(() => $el.remove(), 500)
+                },
+            }"
+			x-show="show"
+			x-transition.duration.500ms
+			class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black/5"
+		>
+			<div class="p-4">
+				<div class="flex items-start">
+					<div class="shrink-0">
+						<svg class="size-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+						</svg>
+					</div>
+					<div class="ml-3 w-0 flex-1 pt-0.5">
+						<p class="text-sm font-medium text-gray-900">Successfully saved!</p>
+						<p class="mt-1 text-sm text-gray-500">Anyone with a link can now view this file.</p>
+						<div class="mt-4 overflow-hidden rounded-full bg-neutral-200">
+							<div
+								class="h-2 rounded-full bg-neutral-500 transition-all ease-linear duration-2900"
+								x-bind:style="'width: ' + progress + '%;'"
+							></div>
+						</div>
+					</div>
+					<div class="ml-4 flex shrink-0">
+						<button @click="show=false" type="button" class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+							<span class="sr-only">Close</span>
+							<svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+								<path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"></path>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+templ NotificationO(variant string, msg string, description string) {
+	<div id="app-notifications" class="flex w-full flex-col items-center space-y-4 sm:items-end">
+		<!--
+      Notification panel, dynamically insert this into the live region when it needs to be displayed
+
+      Entering: "transform ease-out duration-300 transition"
+        From: "translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+        To: "translate-y-0 opacity-100 sm:translate-x-0"
+      Leaving: "transition ease-in duration-100"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+		<div
+			class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black/5"
+			x-data="{isVisible: false}"
+			x-init="setTimeout(() => isVisible = true, 100)"
+			x-show="isVisible"
+			x-transition:enter="transform ease-out duration-300 transition"
+			x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+			x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+			x-transition:leave="transition ease-in duration-100"
+			x-transition:leave-start="opacity-100"
+			x-transition:leave-end="opacity-0"
+		>
+			<div class="p-4">
+				<div class="flex items-start">
+					<div class="shrink-0">
+						<svg class="size-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+						</svg>
+					</div>
+					<div class="ml-3 w-0 flex-1 pt-0.5">
+						<p class="text-sm font-medium text-gray-900">Successfully saved!</p>
+						<p class="mt-1 text-sm text-gray-500">Anyone with a link can now view this file.</p>
+					</div>
+					<div class="ml-4 flex shrink-0">
+						<button @click="isVisible=false" type="button" class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+							<span class="sr-only">Close</span>
+							<svg class="size-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+								<path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"></path>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+}

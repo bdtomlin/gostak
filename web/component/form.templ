@@ -1,9 +1,11 @@
 package component
 
 type FormAttrs struct {
-	Action string
-	Method string
-	Class  string
+	Action  string
+	Method  string
+	Class   string
+	XTarget string
+	ID      string
 }
 
 templ Form(fa FormAttrs) {
@@ -12,6 +14,8 @@ templ Form(fa FormAttrs) {
 		action={ templ.URL(fa.Action) }
 		method={ fa.Method }
 		class={ fa.Class }
+		x-target={ fa.XTarget }
+		id={ fa.ID }
 	>
 		@CSRF()
 		{ children... }

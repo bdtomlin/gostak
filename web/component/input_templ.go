@@ -19,7 +19,7 @@ type InputAttrs struct {
 	Value        string
 }
 
-func Input(name string, ia InputAttrs) templ.Component {
+func Input(ia InputAttrs) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -40,7 +40,7 @@ func Input(name string, ia InputAttrs) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		ia = inputAttrDefaults(name, ia)
+		ia = inputAttrDefaults(ia)
 		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -84,9 +84,9 @@ func Input(name string, ia InputAttrs) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var5 string
-		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(name)
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(ia.Name)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/input.templ`, Line: 22, Col: 15}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/input.templ`, Line: 22, Col: 18}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 		if templ_7745c5c3_Err != nil {
@@ -175,12 +175,12 @@ func Input(name string, ia InputAttrs) templ.Component {
 	})
 }
 
-func inputAttrDefaults(name string, ia InputAttrs) InputAttrs {
+func inputAttrDefaults(ia InputAttrs) InputAttrs {
 	if ia.Type == "" {
 		ia.Type = "text"
 	}
 	if ia.ID == "" {
-		ia.ID = name
+		ia.ID = ia.Name
 	}
 	return ia
 }

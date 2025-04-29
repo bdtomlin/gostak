@@ -11,15 +11,15 @@ type InputAttrs struct {
 	Value        string
 }
 
-templ Input(name string, ia InputAttrs) {
-	{{ ia = inputAttrDefaults(name, ia) }}
+templ Input(ia InputAttrs) {
+	{{ ia = inputAttrDefaults(ia) }}
 	<div>
 		if ia.Label != nil {
 			@ia.Label
 		}
 		<div class={ templ.KV("mt-2", ia.Label != nil) }>
 			<input
-				name={ name }
+				name={ ia.Name }
 				value={ ia.Value }
 				type={ ia.Type }
 				id={ ia.ID }
@@ -32,12 +32,12 @@ templ Input(name string, ia InputAttrs) {
 	</div>
 }
 
-func inputAttrDefaults(name string, ia InputAttrs) InputAttrs {
+func inputAttrDefaults(ia InputAttrs) InputAttrs {
 	if ia.Type == "" {
 		ia.Type = "text"
 	}
 	if ia.ID == "" {
-		ia.ID = name
+		ia.ID = ia.Name
 	}
 	return ia
 }

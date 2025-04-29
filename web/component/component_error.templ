@@ -1,0 +1,11 @@
+package component
+
+import (
+	"log/slog"
+	"fmt"
+)
+
+templ ComponentError(err error) {
+	{{ slog.Error(err.Error()) }}
+	<div>{ fmt.Sprintf("%v", err) }</div>
+}

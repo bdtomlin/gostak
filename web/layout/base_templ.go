@@ -49,9 +49,9 @@ func Base() templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(assets.Path("/js/htmx.min.js"))
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(assets.Path("/js/alpine-ajax.min.js"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/layout/base.templ`, Line: 10, Col: 53}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/layout/base.templ`, Line: 10, Col: 60}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -70,7 +70,7 @@ func Base() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\"></script><meta charset=\"UTF-8\"><meta name=\"htmx-config\" content=\"{\n          &#34;responseHandling&#34;:[\n              {&#34;code&#34;:&#34;204&#34;, &#34;swap&#34;: false},\n              {&#34;code&#34;:&#34;[23]..&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;422&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;404&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;500&#34;, &#34;swap&#34;: true},\n              {&#34;code&#34;:&#34;[45]..&#34;, &#34;swap&#34;: false, &#34;error&#34;:true},\n              {&#34;code&#34;:&#34;...&#34;, &#34;swap&#34;: true}\n          ]\n        }\"></head><body class=\"h-full\" hx-boost=\"false\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\"></script><meta charset=\"UTF-8\"></head><body class=\"h-full\" hx-boost=\"false\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -78,7 +78,7 @@ func Base() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</body></html>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<!-- Global notification live region, render this permanently at the end of the document --><div aria-live=\"assertive\" class=\"pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6\"><div id=\"app-notifications\" class=\"flex w-full flex-col items-center space-y-4 sm:items-end\"></div></div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
