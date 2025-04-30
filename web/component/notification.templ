@@ -1,16 +1,28 @@
 package component
 
 templ Notification(variant string, msg string, description string) {
-	<div id="app-notifications" x-merge="append" class="flex w-full flex-col items-center space-y-4 sm:items-end">
+	<div id="app-notifications" class="flex w-full flex-col items-center space-y-4 sm:items-end">
 		<div
 			x-data="{
                 show: false,
                 progress: 100,
+                timeout1: null,
+                timeout2: null,
+                hovering: false,
                 init() {
                     this.$nextTick(() => this.show = true )
-                    setTimeout(() => this.progress = 0, 100)
- 
-                    setTimeout(() => this.transitionOut(), 3000)
+                    this.setTimeouts()
+                },
+                setTimeouts(){
+                  this.hovering = false
+                  this.timeout1 = setTimeout(() => this.progress = 0, 100)
+                  this.timeout2 = setTimeout(() => this.transitionOut(), 4000)
+                },
+                cancelTimeouts(){
+                  this.hovering = true
+                  this.progress = 100
+                  clearTimeout(this.timeout1)
+                  clearTimeout(this.timeout2)
                 },
                 transitionOut() {
                     this.show = false
@@ -18,6 +30,8 @@ templ Notification(variant string, msg string, description string) {
                     setTimeout(() => $el.remove(), 500)
                 },
             }"
+			@mouseover="cancelTimeouts()"
+			@mouseleave="setTimeouts()"
 			x-show="show"
 			x-transition.duration.500ms
 			class="pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black/5"
@@ -34,8 +48,9 @@ templ Notification(variant string, msg string, description string) {
 						<p class="mt-1 text-sm text-gray-500">Anyone with a link can now view this file.</p>
 						<div class="mt-4 overflow-hidden rounded-full bg-neutral-200">
 							<div
-								class="h-2 rounded-full bg-neutral-500 transition-all ease-linear duration-2900"
-								x-bind:style="'width: ' + progress + '%;'"
+								class="h-2 rounded-full bg-neutral-500"
+								:class="{'transition-all ease-linear duration-3900': !hovering, 'transition-all ease-linear duration-300': hovering}"
+								:style="'width: ' + progress + '%;'"
 							></div>
 						</div>
 					</div>

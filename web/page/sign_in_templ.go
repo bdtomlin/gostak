@@ -188,7 +188,7 @@ func SignInForm(email, password string) templ.Component {
 			Method:  "POST",
 			Class:   "space-y-6",
 			ID:      "sign-in-form",
-			XTarget: "sign-in-form app-notifications",
+			XTarget: "sign-in-form",
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

@@ -746,9 +746,9 @@
     --tw-duration: 300ms;
     transition-duration: 300ms;
   }
-  .duration-2900 {
-    --tw-duration: 2900ms;
-    transition-duration: 2900ms;
+  .duration-3900 {
+    --tw-duration: 3900ms;
+    transition-duration: 3900ms;
   }
   .ease-in {
     --tw-ease: var(--ease-in);
