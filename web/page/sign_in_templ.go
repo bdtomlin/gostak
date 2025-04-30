@@ -44,7 +44,7 @@ func SignIn() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign in to your account</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"mt-12 sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign in to your account</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

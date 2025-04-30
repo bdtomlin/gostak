@@ -5,16 +5,18 @@ import c "github.com/bdtomlin/gostak/web/component"
 
 templ SignUp() {
 	@layout.Auth() {
-		<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-			<div class="sm:mx-auto sm:w-full sm:max-w-sm">
-				<img class="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&shade=600" alt="Your Company"/>
-				<h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign Up Now</h2>
-			</div>
+		<div class="mt-12 sm:mx-auto sm:w-full sm:max-w-sm">
+			<img class="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&shade=600" alt="Your Company"/>
+			<h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">
+				Sign up for an account
+			</h2>
+		</div>
+		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
 			@SignUpForm("", "")
 			<p class="mt-10 text-center text-sm/6 text-gray-400">
-				Already a member? 
-				@c.Link("/ui/sign-in") {
-					Sign In Here
+				Not a member?
+				@c.Link("/ui/sign-up") {
+					Sign Up Here
 				}
 			</p>
 		</div>
@@ -22,11 +24,13 @@ templ SignUp() {
 }
 
 templ SignUpForm(email string, password string) {
-	<div
-		id="sign-up-form"
-		class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm"
-		data-signals="{name: '', password: ''}"
-	>
+	@c.Form(c.FormAttrs{
+		Action:  "/sign-up",
+		Method:  "POST",
+		Class:   "space-y-6",
+		ID:      "sign-up-form",
+		XTarget: "sign-up-form",
+	}) {
 		@c.Input(c.InputAttrs{
 			Name:  "email",
 			Value: "",
@@ -37,7 +41,9 @@ templ SignUpForm(email string, password string) {
 			Autocomplete: "current-password",
 		})
 		<div>
-			<button data-on-click="@post('/sign-up')">Sign Up</button>
+			@c.Button("default") {
+				Sign In 
+			}
 		</div>
-	</div>
+	}
 }
