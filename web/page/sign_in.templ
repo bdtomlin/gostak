@@ -29,22 +29,30 @@ templ SignInForm(email, password string) {
 		ID:      "sign-in-form",
 		XTarget: "sign-in-form",
 	}) {
-		@c.Input(
-			c.InputAttrs{
-				Name:  "email",
-				Value: email,
-				Label: c.Label("email", "Email address"),
-			},
-		)
-		@c.Input(
-			c.InputAttrs{
-				Name:         "password",
-				Value:        password,
-				Type:         "password",
-				Label:        c.LabelLink("password", "Password", "#", "Forgot Password?"),
-				Autocomplete: "current-password",
-			},
-		)
+		<div>
+			@c.Label(c.LabelAttrs{For: "email"}) {
+				Email
+			}
+			@c.Input(
+				c.InputAttrs{
+					Name:  "email",
+					Value: email,
+				},
+			)
+		</div>
+		<div>
+			@c.Label(c.LabelAttrs{For: "password", LinkText: "Forgot Password?", Link: "#"}) {
+				Password
+			}
+			@c.Input(
+				c.InputAttrs{
+					Name:         "password",
+					Value:        password,
+					Type:         "password",
+					Autocomplete: "current-password",
+				},
+			)
+		</div>
 		<div>
 			@c.Button("default") {
 				Sign In

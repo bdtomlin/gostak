@@ -290,6 +290,9 @@
   .mr-16 {
     margin-right: calc(var(--spacing) * 16);
   }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
   .ml-3 {
     margin-left: calc(var(--spacing) * 3);
   }

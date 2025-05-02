@@ -1,5 +1,10 @@
 package component
 
+import (
+	"log"
+	"fmt"
+)
+
 type InputAttrs struct {
 	Type         string
 	Name         string
@@ -7,37 +12,41 @@ type InputAttrs struct {
 	Autocomplete string
 	Required     bool
 	Class        string
-	Label        templ.Component
 	Value        string
 }
 
-templ Input(ia InputAttrs) {
-	{{ ia = inputAttrDefaults(ia) }}
-	<div>
-		if ia.Label != nil {
-			@ia.Label
-		}
-		<div class={ templ.KV("mt-2", ia.Label != nil) }>
-			<input
-				name={ ia.Name }
-				value={ ia.Value }
-				type={ ia.Type }
-				id={ ia.ID }
-				autocomplete={ ia.Autocomplete }
-				required?={ ia.Required }
-				class={ "block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-teal-500 sm:text-sm/6",
-          ia.Class }
-			/>
-		</div>
-	</div>
-}
-
-func inputAttrDefaults(ia InputAttrs) InputAttrs {
-	if ia.Type == "" {
-		ia.Type = "text"
+func (ia InputAttrs) ToAttrs() templ.Attributes {
+	if ia.Name == "" {
+		log.Fatal("component.InputAttrs: Missing Attr 'Name'")
 	}
+
 	if ia.ID == "" {
 		ia.ID = ia.Name
 	}
-	return ia
+
+	if ia.Type == "" {
+		ia.Type = "text"
+	}
+
+	defaultClass := "block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-teal-500 sm:text-sm/6"
+	ia.Class = fmt.Sprintf("%v %v", defaultClass, ia.Class)
+
+	attrs := templ.Attributes{
+		"name":     ia.Name,
+		"type":     ia.Type,
+		"value":    ia.Value,
+		"id":       ia.ID,
+		"required": ia.Required,
+		"class":    ia.Class,
+	}
+
+	if ia.Autocomplete != "" {
+		attrs["autocomplete"] = ia.Autocomplete
+	}
+
+	return attrs
+}
+
+templ Input(ia InputAttrs) {
+	<input { ia.ToAttrs()... }/>
 }

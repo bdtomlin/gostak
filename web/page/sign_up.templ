@@ -26,20 +26,31 @@ templ SignUp() {
 templ SignUpForm(email string, password string) {
 	@c.Form(c.FormAttrs{
 		Action:  "/sign-up",
-		Method:  "POST",
 		Class:   "space-y-6",
 		ID:      "sign-up-form",
+		Method:  "POST",
 		XTarget: "sign-up-form",
 	}) {
-		@c.Input(c.InputAttrs{
-			Name:  "email",
-			Value: "",
-		})
-		@c.Input(c.InputAttrs{
-			Name:         "password",
-			Type:         "password",
-			Autocomplete: "current-password",
-		})
+		<div>
+			@c.Label(c.LabelAttrs{For: "email"}) {
+				Email
+			}
+			@c.Input(c.InputAttrs{
+				Name:  "email",
+				Type:  "email",
+				Value: email,
+			})
+		</div>
+		<div>
+			@c.Label(c.LabelAttrs{For: "password"}) {
+				Password
+			}
+			@c.Input(c.InputAttrs{
+				Name:  "password",
+				Value: password,
+				Type:  "password",
+			})
+		</div>
 		<div>
 			@c.Button("default") {
 				Sign In 
