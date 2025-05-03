@@ -1,9 +1,10 @@
 package page
 
 import "github.com/bdtomlin/gostak/web/layout"
+import "github.com/bdtomlin/gostak/web/form"
 import c "github.com/bdtomlin/gostak/web/component"
 
-templ SignUp() {
+templ SignUp(f form.SignUp) {
 	@layout.Auth() {
 		<div class="mt-12 sm:mx-auto sm:w-full sm:max-w-sm">
 			<img class="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&shade=600" alt="Your Company"/>
@@ -12,7 +13,7 @@ templ SignUp() {
 			</h2>
 		</div>
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-			@SignUpForm("", "")
+			@SignUpForm(f)
 			<p class="mt-10 text-center text-sm/6 text-gray-400">
 				Not a member?
 				@c.Link("/ui/sign-up") {
@@ -23,7 +24,7 @@ templ SignUp() {
 	}
 }
 
-templ SignUpForm(email string, password string) {
+templ SignUpForm(f form.SignUp) {
 	@c.Form(c.FormAttrs{
 		Action:  "/sign-up",
 		Class:   "space-y-6",
@@ -32,24 +33,26 @@ templ SignUpForm(email string, password string) {
 		XTarget: "sign-up-form",
 	}) {
 		<div>
-			@c.Label(c.LabelAttrs{For: "email"}) {
+			@c.Label(c.LabelAttrs{For: "Email"}) {
 				Email
 			}
 			@c.Input(c.InputAttrs{
-				Name:  "email",
-				Type:  "email",
-				Value: email,
+				Name:  "Email",
+				Type:  "Email",
+				Value: f.Email,
 			})
+			@c.InputError(f.Form, "Email")
 		</div>
 		<div>
-			@c.Label(c.LabelAttrs{For: "password"}) {
+			@c.Label(c.LabelAttrs{For: "Password"}) {
 				Password
 			}
 			@c.Input(c.InputAttrs{
-				Name:  "password",
-				Value: password,
+				Name:  "Password",
+				Value: f.Password,
 				Type:  "password",
 			})
+			@c.InputError(f.Form, "Password")
 		</div>
 		<div>
 			@c.Button("default") {

@@ -19,8 +19,3 @@ if [ ! -f /etc/setup_complete ]; then
     # do initial setup stuff
     touch /etc/setup_complete
 fi
-
-
-# after initial setup, enter the distrobox and...
-# go install github.com/air-verse/air@latest
-

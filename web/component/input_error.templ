@@ -1,0 +1,13 @@
+package component
+
+import (
+	"github.com/bdtomlin/gostak/web/form"
+)
+
+templ InputError(f *form.Form, field string) {
+	if f.ErrorsAny(field) {
+		<div class="text-red-300 text-sm mt-2">
+			{ f.InputErrors(field) }
+		</div>
+	}
+}
