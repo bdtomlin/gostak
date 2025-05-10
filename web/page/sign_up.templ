@@ -16,7 +16,7 @@ templ SignUp(f form.SignUp) {
 			@SignUpForm(f)
 			<p class="mt-10 text-center text-sm/6 text-gray-400">
 				Not a member?
-				@c.Link("/ui/sign-up") {
+				@c.Link(c.LinkAttrs{Href: "/ui/sign-up"}) {
 					Sign Up Here
 				}
 			</p>
@@ -26,11 +26,10 @@ templ SignUp(f form.SignUp) {
 
 templ SignUpForm(f form.SignUp) {
 	@c.Form(c.FormAttrs{
-		Action:  "/sign-up",
-		Class:   "space-y-6",
-		ID:      "sign-up-form",
-		Method:  "POST",
-		XTarget: "sign-up-form",
+		Class:  "space-y-6",
+		ID:     "sign-up-form",
+		HxPost: "/sign-up",
+		HxSwap: "outerHTML",
 	}) {
 		<div>
 			@c.Label(c.LabelAttrs{For: "Email"}) {
@@ -38,7 +37,7 @@ templ SignUpForm(f form.SignUp) {
 			}
 			@c.Input(c.InputAttrs{
 				Name:  "Email",
-				Type:  "Email",
+				Type:  "text",
 				Value: f.Email,
 			})
 			@c.InputError(f.Form, "Email")

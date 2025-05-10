@@ -75,7 +75,7 @@ func SignUp(f form.SignUp) templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = c.Link("/ui/sign-up").Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = c.Link(c.LinkAttrs{Href: "/ui/sign-up"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -154,7 +154,7 @@ func SignUpForm(f form.SignUp) templ.Component {
 			}
 			templ_7745c5c3_Err = c.Input(c.InputAttrs{
 				Name:  "Email",
-				Type:  "Email",
+				Type:  "text",
 				Value: f.Email,
 			}).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
@@ -235,11 +235,10 @@ func SignUpForm(f form.SignUp) templ.Component {
 			return nil
 		})
 		templ_7745c5c3_Err = c.Form(c.FormAttrs{
-			Action:  "/sign-up",
-			Class:   "space-y-6",
-			ID:      "sign-up-form",
-			Method:  "POST",
-			XTarget: "sign-up-form",
+			Class:  "space-y-6",
+			ID:     "sign-up-form",
+			HxPost: "/sign-up",
+			HxSwap: "outerHTML",
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

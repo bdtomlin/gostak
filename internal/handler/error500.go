@@ -2,6 +2,7 @@ package handler
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 	"os"
 
@@ -18,6 +19,8 @@ func (e Error500) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	page.Error500(e.Message).Render(r.Context(), w)
 }
 
-func NewError500(message string) Error500 {
-	return Error500{Message: message}
+func RenderError500(err error, w http.ResponseWriter, r *http.Request) {
+	message := fmt.Errorf("500 error: %w", err).Error()
+	slog.Error(message)
+	Error500{Message: message}.ServeHTTP(w, r)
 }

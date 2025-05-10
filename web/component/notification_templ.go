@@ -8,7 +8,13 @@ package component
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Notification(variant string, msg string, description string) templ.Component {
+type Notification struct {
+	Variant     string
+	Message     string
+	Description string
+}
+
+func Notifications(notifications ...Notification) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -29,36 +35,81 @@ func Notification(variant string, msg string, description string) templ.Componen
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div id=\"app-notifications\" class=\"flex w-full flex-col items-center space-y-4 sm:items-end\"><div x-data=\"{\n                show: false,\n                progress: 100,\n                timeout1: null,\n                timeout2: null,\n                hovering: false,\n                init() {\n                    this.$nextTick(() =&gt; this.show = true )\n                    this.setTimeouts()\n                },\n                setTimeouts(){\n                  this.hovering = false\n                  this.timeout1 = setTimeout(() =&gt; this.progress = 0, 100)\n                  this.timeout2 = setTimeout(() =&gt; this.transitionOut(), 4000)\n                },\n                cancelTimeouts(){\n                  this.hovering = true\n                  this.progress = 100\n                  clearTimeout(this.timeout1)\n                  clearTimeout(this.timeout2)\n                },\n                transitionOut() {\n                    this.show = false\n \n                    setTimeout(() =&gt; $el.remove(), 500)\n                },\n            }\" @mouseover=\"cancelTimeouts()\" @mouseleave=\"setTimeouts()\" x-show=\"show\" x-transition.duration.500ms class=\"pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black/5\"><div class=\"p-4\"><div class=\"flex items-start\"><div class=\"shrink-0\"><svg class=\"size-6 text-green-400\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"></path></svg></div><div class=\"ml-3 w-0 flex-1 pt-0.5\"><p class=\"text-sm font-medium text-gray-900\">Successfully saved!</p><p class=\"mt-1 text-sm text-gray-500\">Anyone with a link can now view this file.</p><div class=\"mt-4 overflow-hidden rounded-full bg-neutral-200\"><div class=\"h-2 rounded-full bg-neutral-500\" :class=\"{&#39;transition-all ease-linear duration-3900&#39;: !hovering, &#39;transition-all ease-linear duration-300&#39;: hovering}\" :style=\"&#39;width: &#39; + progress + &#39;%;&#39;\"></div></div></div><div class=\"ml-4 flex shrink-0\"><button @click=\"show=false\" type=\"button\" class=\"inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2\"><span class=\"sr-only\">Close</span> <svg class=\"size-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path d=\"M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z\"></path></svg></button></div></div></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div hx-swap-oob=\"beforeend:#app-notifications\" id=\"app-notifications\" class=\"flex w-full flex-col items-center space-y-4 sm:items-end\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		return nil
-	})
-}
-
-func NotificationO(variant string, msg string, description string) templ.Component {
-	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
-		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
-		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
-			return templ_7745c5c3_CtxErr
-		}
-		templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
-		if !templ_7745c5c3_IsBuffer {
-			defer func() {
-				templ_7745c5c3_BufErr := templruntime.ReleaseBuffer(templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err == nil {
-					templ_7745c5c3_Err = templ_7745c5c3_BufErr
+		for _, notification := range notifications {
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div x-data=\"{\n                show: false,\n                progress: 100,\n                timeout1: null,\n                timeout2: null,\n                hovering: false,\n                init() {\n                    this.$nextTick(() =&gt; this.show = true )\n                    this.setTimeouts()\n                },\n                setTimeouts(){\n                  this.hovering = false\n                  this.timeout1 = setTimeout(() =&gt; this.progress = 0, 100)\n                  this.timeout2 = setTimeout(() =&gt; this.transitionOut(), 4000)\n                },\n                cancelTimeouts(){\n                  this.hovering = true\n                  this.progress = 100\n                  clearTimeout(this.timeout1)\n                  clearTimeout(this.timeout2)\n                },\n                transitionOut() {\n                    this.show = false\n \n                    setTimeout(() =&gt; $el.remove(), 500)\n                },\n            }\" @mouseover=\"cancelTimeouts()\" @mouseleave=\"setTimeouts()\" x-show=\"show\" x-transition.duration.500ms class=\"pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black/5\"><div class=\"p-4\"><div class=\"flex items-start\"><div class=\"shrink-0\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			if notification.Variant == "success" {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<svg class=\"size-6 text-green-400\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"></path></svg> ")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
 				}
-			}()
+			}
+			if notification.Variant == "error" {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<svg class=\"size-6 text-red-400\" data-slot=\"icon\" aria-hidden=\"true\" fill=\"none\" stroke-width=\"1.5\" stroke=\"currentColor\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg> ")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			if notification.Variant == "warning" {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "<svg class=\"size-6 text-yellow-400\" data-slot=\"icon\" aria-hidden=\"true\" fill=\"none\" stroke-width=\"1.5\" stroke=\"currentColor\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg> ")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			if notification.Variant == "info" {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<svg class=\"size-6 text-blue-400\" data-slot=\"icon\" aria-hidden=\"true\" fill=\"none\" stroke-width=\"1.5\" stroke=\"currentColor\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></path></svg>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "</div><div class=\"ml-3 w-0 flex-1 pt-0.5\"><p class=\"text-sm font-medium text-gray-900\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var2 string
+			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(notification.Message)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/notification.templ`, Line: 71, Col: 74}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</p>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			if notification.Description != "" {
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "<p class=\"mt-1 text-sm text-gray-500\">")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var3 string
+				templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(notification.Description)
+				if templ_7745c5c3_Err != nil {
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/notification.templ`, Line: 73, Col: 72}
+				}
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "</p>")
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+			}
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 11, "<div class=\"mt-4 overflow-hidden rounded-full bg-neutral-200\"><div class=\"h-2 rounded-full bg-neutral-500\" :class=\"{&#39;transition-all ease-linear duration-3900&#39;: !hovering, &#39;transition-all ease-linear duration-300&#39;: hovering}\" :style=\"&#39;width: &#39; + progress + &#39;%;&#39;\"></div></div></div><div class=\"ml-4 flex shrink-0\"><button @click=\"show=false\" type=\"button\" class=\"inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2\"><span class=\"sr-only\">Close</span> <svg class=\"size-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path d=\"M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z\"></path></svg></button></div></div></div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 		}
-		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var2 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var2 == nil {
-			templ_7745c5c3_Var2 = templ.NopComponent
-		}
-		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div id=\"app-notifications\" class=\"flex w-full flex-col items-center space-y-4 sm:items-end\"><!--\n      Notification panel, dynamically insert this into the live region when it needs to be displayed\n\n      Entering: \"transform ease-out duration-300 transition\"\n        From: \"translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2\"\n        To: \"translate-y-0 opacity-100 sm:translate-x-0\"\n      Leaving: \"transition ease-in duration-100\"\n        From: \"opacity-100\"\n        To: \"opacity-0\"\n    --><div class=\"pointer-events-auto w-full max-w-sm overflow-hidden rounded-lg bg-white shadow-lg ring-1 ring-black/5\" x-data=\"{isVisible: false}\" x-init=\"setTimeout(() =&gt; isVisible = true, 100)\" x-show=\"isVisible\" x-transition:enter=\"transform ease-out duration-300 transition\" x-transition:enter-start=\"translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2\" x-transition:enter-end=\"translate-y-0 opacity-100 sm:translate-x-0\" x-transition:leave=\"transition ease-in duration-100\" x-transition:leave-start=\"opacity-100\" x-transition:leave-end=\"opacity-0\"><div class=\"p-4\"><div class=\"flex items-start\"><div class=\"shrink-0\"><svg class=\"size-6 text-green-400\" fill=\"none\" viewBox=\"0 0 24 24\" stroke-width=\"1.5\" stroke=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\"></path></svg></div><div class=\"ml-3 w-0 flex-1 pt-0.5\"><p class=\"text-sm font-medium text-gray-900\">Successfully saved!</p><p class=\"mt-1 text-sm text-gray-500\">Anyone with a link can now view this file.</p></div><div class=\"ml-4 flex shrink-0\"><button @click=\"isVisible=false\" type=\"button\" class=\"inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2\"><span class=\"sr-only\">Close</span> <svg class=\"size-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\" data-slot=\"icon\"><path d=\"M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z\"></path></svg></button></div></div></div></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 12, "</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

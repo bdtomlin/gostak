@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -11,7 +10,7 @@ import (
 func GetUser(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil {
-		NewError500(fmt.Sprintf("%v", err)).ServeHTTP(w, r)
+		RenderError500(err, w, r)
 		return
 	}
 

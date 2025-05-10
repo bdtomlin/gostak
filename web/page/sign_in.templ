@@ -13,7 +13,7 @@ templ SignIn() {
 			@SignInForm("", "")
 			<p class="mt-10 text-center text-sm/6 text-gray-400">
 				Not a member?
-				@c.Link("/ui/sign-up") {
+				@c.Link(c.LinkAttrs{Href: "/ui/sign-up"}) {
 					Sign Up Here
 				}
 			</p>
@@ -23,11 +23,10 @@ templ SignIn() {
 
 templ SignInForm(email, password string) {
 	@c.Form(c.FormAttrs{
-		Action:  "/sign-in",
-		Method:  "POST",
-		Class:   "space-y-6",
-		ID:      "sign-in-form",
-		XTarget: "sign-in-form",
+		Class:  "space-y-6",
+		ID:     "sign-in-form",
+		HxPost: "/sign-in",
+		HxSwap: "outerHTML",
 	}) {
 		<div>
 			@c.Label(c.LabelAttrs{For: "email"}) {

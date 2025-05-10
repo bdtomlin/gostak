@@ -6,12 +6,14 @@ templ Base() {
 	<!DOCTYPE html>
 	<html class="h-full bg-neutral-800">
 		<head>
-			<link rel="stylesheet" href={ assets.Path("/css/styles.css") }/>
-			<script defer src={ assets.Path("/js/alpine-ajax.min.js") }></script>
-			<script defer src={ assets.Path("/js/alpine.min.js") }></script>
 			<meta charset="UTF-8"/>
+			<meta name="htmx-config" content='{"responseHandling": [{"code":"...", "swap": true}]}'/>
+			<link rel="stylesheet" href={ assets.Path("/css/styles.css") }/>
+			<script defer src={ assets.Path("/js/htmx.min.js") }></script>
+			<script defer src={ assets.Path("/js/htmx-ext-preload.js") }></script>
+			<script defer src={ assets.Path("/js/alpine.min.js") }></script>
 		</head>
-		<body class="h-full" hx-boost="false">
+		<body class="h-full" hx-boost="true" hx-ext="preload" preload="mouseover">
 			{ children... }
 			<!-- Global notification live region, render this permanently at the end of the document -->
 			<div aria-live="assertive" class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6">

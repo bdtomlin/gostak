@@ -20,7 +20,7 @@ templ Label(la LabelAttrs) {
 			{ children... }
 		</label>
 		if la.LinkText != "" {
-			@Link(la.Link) {
+			@Link(LinkAttrs{Href: la.Link}) {
 				{ la.LinkText }
 			}
 		}

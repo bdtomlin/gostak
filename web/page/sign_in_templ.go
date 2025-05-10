@@ -74,7 +74,7 @@ func SignIn() templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = c.Link("/ui/sign-up").Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = c.Link(c.LinkAttrs{Href: "/ui/sign-up"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -230,11 +230,10 @@ func SignInForm(email, password string) templ.Component {
 			return nil
 		})
 		templ_7745c5c3_Err = c.Form(c.FormAttrs{
-			Action:  "/sign-in",
-			Method:  "POST",
-			Class:   "space-y-6",
-			ID:      "sign-in-form",
-			XTarget: "sign-in-form",
+			Class:  "space-y-6",
+			ID:     "sign-in-form",
+			HxPost: "/sign-in",
+			HxSwap: "outerHTML",
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

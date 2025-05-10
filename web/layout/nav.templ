@@ -79,19 +79,15 @@ templ Nav() {
 				</ul>
 			</li>
 			<li>
-				<div class="text-xs/6 font-semibold text-neutral-400">UI Pages</div>
+				<div class="text-xs/6 font-semibold text-neutral-400">Auth Pages</div>
 				<ul role="list" class="-mx-2 mt-2 space-y-1">
-					@navItem("/ui/sign-in", false) {
+					@navItem("/sign-in", false) {
 						@letterIcon("SI")
 						<span class="truncate">Sign In</span>
 					}
-					@navItem("/ui/sign-up", false) {
+					@navItem("/sign-up", false) {
 						@letterIcon("SU")
 						<span class="truncate">Sign Up</span>
-					}
-					@navItem("/", false) {
-						@letterIcon("W")
-						<span class="truncate">Workcation</span>
 					}
 				</ul>
 			</li>

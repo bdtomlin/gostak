@@ -1,7 +1,7 @@
 package form
 
 import (
-	"strings"
+	"net/mail"
 )
 
 type SignUp struct {
@@ -11,16 +11,19 @@ type SignUp struct {
 }
 
 func NewSignUp() *SignUp {
-	su := SignUp{
+	su := &SignUp{
 		Form: NewForm(),
 	}
 	su.AddValidator(su.ValidateEmail)
 
-	return &su
+	return su
 }
 
 func (su *SignUp) ValidateEmail() {
-	if !strings.Contains(su.Email, "@") {
+	address, err := mail.ParseAddress(su.Email)
+	if err != nil {
 		su.AddError("Email", "is invalid")
+	} else {
+		su.Email = address.Address
 	}
 }

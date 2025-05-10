@@ -1,5 +1,7 @@
 {
-  "/css/styles.css": "/css/styles-8b500550bfc7dea1d00c35834f34355f.css",
-  "/js/alpine-ajax.min.js": "/js/alpine-ajax-6cdf1a80c9acc7de4d148d02686f95f0.min.js",
-  "/js/alpine.min.js": "/js/alpine-e42d440fa0ef2c954b0b1b9ea18c899e.min.js"
+  "/css/styles.css": "/css/styles-6b306279903dc4db24bb4bab499037af.css",
+  "/js/alpine.min.js": "/js/alpine-e42d440fa0ef2c954b0b1b9ea18c899e.min.js",
+  "/js/htmx-ext-preload.js": "/js/htmx-ext-preload-086e52c0a84208bcbc29b41ae5248bed.js",
+  "/js/htmx.min.js": "/js/htmx-13f08cce9f7b2cdf5384d8a27285ba65.min.js",
+  "/js/turbo.es2017-esm.js": "/js/turbo-0a8aa18cf65ef792a67df7a1134b1cf2.es2017-esm.js"
 }

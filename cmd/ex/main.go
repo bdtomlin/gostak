@@ -2,19 +2,25 @@ package main
 
 import (
 	"fmt"
+	"net/mail"
 
 	"github.com/bdtomlin/gostak/internal/repo"
-	"github.com/bdtomlin/gostak/web/form"
 )
 
 func main() {
 	repo.Init()
-	su := form.NewSignUp()
-	su.Email = "onetwo.three"
-	su.Password = "1234"
-	su.Validate()
-	fmt.Println("su:", su)
-	fmt.Printf("form: %+v\n", su.Form)
-	fmt.Println("errors:", su.Errors)
-	fmt.Println("form:", su.Form)
+	add, err := mail.ParseAddress("bob bob<bob@bob.com>")
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println(add.Name)
+	fmt.Println(add.Address)
+
+	add, err = mail.ParseAddress("bobb")
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println(add.Name)
+		fmt.Println(add.Address)
+	}
 }

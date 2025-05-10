@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/bdtomlin/gostak/internal/repo"
@@ -11,9 +10,7 @@ import (
 func ListUsers(w http.ResponseWriter, r *http.Request) {
 	users, err := repo.ListUsers()
 	if err != nil {
-		// Return 500 for server errors
-		errMsg := fmt.Sprintf("%v", err)
-		NewError500(errMsg).ServeHTTP(w, r)
+		RenderError500(err, w, r)
 		return
 	}
 

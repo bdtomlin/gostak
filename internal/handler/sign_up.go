@@ -1,12 +1,10 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/bdtomlin/gostak/web/form"
 	"github.com/bdtomlin/gostak/web/page"
-	"github.com/gorilla/schema"
 )
 
 func GetSignUp(w http.ResponseWriter, r *http.Request) {
@@ -15,19 +13,14 @@ func GetSignUp(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostSignUp(w http.ResponseWriter, r *http.Request) {
-	var decoder = schema.NewDecoder()
-	err := r.ParseForm()
-	if err != nil {
-		fmt.Println(err)
-	}
-
 	suf := form.NewSignUp()
 
-	err = decoder.Decode(suf, r.PostForm)
+	err := DecodeParams(suf, r)
 	if err != nil {
-		fmt.Println(err)
+		RenderError500(err, w, r)
+		return
 	}
 
 	suf.Validate()
-	page.SignUp(*suf).Render(r.Context(), w)
+	page.SignUpForm(*suf).Render(r.Context(), w)
 }
