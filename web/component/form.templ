@@ -1,44 +1,29 @@
 package component
 
+import "fmt"
+import "strings"
+
 type FormAttrs struct {
 	Action   string
 	Method   string
-	Class    string
-	HxGet    string
-	HxPost   string
-	HxPut    string
-	HxPatch  string
-	HxDelete string
-	HxSwap   string
 	ID       string
-	Attrs    templ.Attributes
+	Class    string
+	HxMethod string
+	HxAction string
+	HxSwap   string
 }
 
 func (fa *FormAttrs) ToAttrs() templ.Attributes {
-	ta := templ.Attributes{
+	attrs := templ.Attributes{
 		"class": fa.Class,
-		"ID":    fa.ID,
+		"id":    fa.ID,
 	}
-	if fa.HxGet != "" {
-		ta["hx-get"] = fa.HxGet
-	}
-	if fa.HxPost != "" {
-		ta["hx-post"] = fa.HxPost
-	}
-	if fa.HxPut != "" {
-		ta["hx-put"] = fa.HxPut
-	}
-	if fa.HxPatch != "" {
-		ta["hx-patch"] = fa.HxPatch
-	}
-	if fa.HxDelete != "" {
-		ta["hx-delete"] = fa.HxDelete
-	}
-	if fa.HxSwap != "" {
-		ta["hx-swap"] = fa.HxSwap
+	if fa.HxMethod != "" {
+		fa.HxMethod = strings.ToLower(fa.HxMethod)
+		attrs[fmt.Sprintf("hx-%s", fa.HxMethod)] = fa.HxAction
 	}
 
-	return ta
+	return attrs
 }
 
 templ Form(fa FormAttrs) {

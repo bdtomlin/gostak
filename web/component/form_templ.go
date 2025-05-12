@@ -8,45 +8,30 @@ package component
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
+import "fmt"
+import "strings"
+
 type FormAttrs struct {
 	Action   string
 	Method   string
-	Class    string
-	HxGet    string
-	HxPost   string
-	HxPut    string
-	HxPatch  string
-	HxDelete string
-	HxSwap   string
 	ID       string
-	Attrs    templ.Attributes
+	Class    string
+	HxMethod string
+	HxAction string
+	HxSwap   string
 }
 
 func (fa *FormAttrs) ToAttrs() templ.Attributes {
-	ta := templ.Attributes{
+	attrs := templ.Attributes{
 		"class": fa.Class,
-		"ID":    fa.ID,
+		"id":    fa.ID,
 	}
-	if fa.HxGet != "" {
-		ta["hx-get"] = fa.HxGet
-	}
-	if fa.HxPost != "" {
-		ta["hx-post"] = fa.HxPost
-	}
-	if fa.HxPut != "" {
-		ta["hx-put"] = fa.HxPut
-	}
-	if fa.HxPatch != "" {
-		ta["hx-patch"] = fa.HxPatch
-	}
-	if fa.HxDelete != "" {
-		ta["hx-delete"] = fa.HxDelete
-	}
-	if fa.HxSwap != "" {
-		ta["hx-swap"] = fa.HxSwap
+	if fa.HxMethod != "" {
+		fa.HxMethod = strings.ToLower(fa.HxMethod)
+		attrs[fmt.Sprintf("hx-%s", fa.HxMethod)] = fa.HxAction
 	}
 
-	return ta
+	return attrs
 }
 
 func Form(fa FormAttrs) templ.Component {
@@ -126,7 +111,7 @@ func CSRF() templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(ctx.Value("gorilla.csrf.Token").(string))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/form.templ`, Line: 52, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/form.templ`, Line: 37, Col: 96}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {

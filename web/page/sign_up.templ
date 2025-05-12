@@ -26,10 +26,11 @@ templ SignUp(f form.SignUp) {
 
 templ SignUpForm(f form.SignUp) {
 	@c.Form(c.FormAttrs{
-		Class:  "space-y-6",
-		ID:     "sign-up-form",
-		HxPost: "/sign-up",
-		HxSwap: "outerHTML",
+		Class:    "space-y-6",
+		ID:       "sign-up-form",
+		HxMethod: "post",
+		HxAction: "/sign-up",
+		HxSwap:   "outerHTML",
 	}) {
 		<div>
 			@c.Label(c.LabelAttrs{For: "Email"}) {

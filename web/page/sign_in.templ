@@ -23,10 +23,11 @@ templ SignIn() {
 
 templ SignInForm(email, password string) {
 	@c.Form(c.FormAttrs{
-		Class:  "space-y-6",
-		ID:     "sign-in-form",
-		HxPost: "/sign-in",
-		HxSwap: "outerHTML",
+		Class:    "space-y-6",
+		ID:       "sign-in-form",
+		HxMethod: "post",
+		HxAction: "/sign-in",
+		HxSwap:   "outerHTML",
 	}) {
 		<div>
 			@c.Label(c.LabelAttrs{For: "email"}) {

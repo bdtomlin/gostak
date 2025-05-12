@@ -230,10 +230,11 @@ func SignInForm(email, password string) templ.Component {
 			return nil
 		})
 		templ_7745c5c3_Err = c.Form(c.FormAttrs{
-			Class:  "space-y-6",
-			ID:     "sign-in-form",
-			HxPost: "/sign-in",
-			HxSwap: "outerHTML",
+			Class:    "space-y-6",
+			ID:       "sign-in-form",
+			HxMethod: "post",
+			HxAction: "/sign-in",
+			HxSwap:   "outerHTML",
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
