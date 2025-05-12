@@ -12,8 +12,6 @@ import "fmt"
 import "strings"
 
 type FormAttrs struct {
-	Action   string
-	Method   string
 	ID       string
 	Class    string
 	HxMethod string
@@ -29,6 +27,9 @@ func (fa *FormAttrs) ToAttrs() templ.Attributes {
 	if fa.HxMethod != "" {
 		fa.HxMethod = strings.ToLower(fa.HxMethod)
 		attrs[fmt.Sprintf("hx-%s", fa.HxMethod)] = fa.HxAction
+	}
+	if fa.HxSwap != "" {
+		attrs["hx-swap"] = fa.HxSwap
 	}
 
 	return attrs
@@ -111,7 +112,7 @@ func CSRF() templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(ctx.Value("gorilla.csrf.Token").(string))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/form.templ`, Line: 37, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/form.templ`, Line: 38, Col: 96}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {

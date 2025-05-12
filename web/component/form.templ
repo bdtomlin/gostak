@@ -4,8 +4,6 @@ import "fmt"
 import "strings"
 
 type FormAttrs struct {
-	Action   string
-	Method   string
 	ID       string
 	Class    string
 	HxMethod string
@@ -21,6 +19,9 @@ func (fa *FormAttrs) ToAttrs() templ.Attributes {
 	if fa.HxMethod != "" {
 		fa.HxMethod = strings.ToLower(fa.HxMethod)
 		attrs[fmt.Sprintf("hx-%s", fa.HxMethod)] = fa.HxAction
+	}
+	if fa.HxSwap != "" {
+		attrs["hx-swap"] = fa.HxSwap
 	}
 
 	return attrs
