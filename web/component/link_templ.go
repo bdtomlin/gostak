@@ -8,8 +8,47 @@ package component
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
+import (
+	"fmt"
+	"strings"
+)
+
 type LinkAttrs struct {
-	Href string
+	Href          string
+	ID            string
+	Class         string
+	HxMethod      string
+	HxAction      string
+	HxSwap        string
+	OverrideClass bool
+}
+
+const defaultClass string = "font-semibold text-teal-500 hover:text-teal-400"
+
+func (la *LinkAttrs) ToAttrs() templ.Attributes {
+	attrs := templ.Attributes{}
+
+	if la.ID != "" {
+		attrs["id"] = la.ID
+
+	}
+
+	if la.OverrideClass {
+		attrs["class"] = la.Class
+	} else {
+		attrs["class"] = fmt.Sprintf("%s %s", defaultClass, la.Class)
+	}
+
+	if la.HxMethod != "" {
+		la.HxMethod = strings.ToLower(la.HxMethod)
+		attrs[fmt.Sprintf("hx-%s", la.HxMethod)] = la.HxAction
+	}
+
+	if la.HxSwap != "" {
+		attrs["hx-swap"] = la.HxSwap
+	}
+
+	return attrs
 }
 
 func Link(la LinkAttrs) templ.Component {
@@ -42,7 +81,15 @@ func Link(la LinkAttrs) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "\" class=\"font-semibold text-teal-500 hover:text-teal-400\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, la.ToAttrs())
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, ">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -50,7 +97,7 @@ func Link(la LinkAttrs) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</a>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</a>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
