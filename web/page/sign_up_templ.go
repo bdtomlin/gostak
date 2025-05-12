@@ -45,7 +45,7 @@ func SignUp(f form.SignUp) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"mt-12 sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign up for an account</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"pt-12 sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign up for an account</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -53,7 +53,7 @@ func SignUp(f form.SignUp) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<p class=\"mt-10 text-center text-sm/6 text-gray-400\">Not a member?")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<p class=\"mt-10 text-center text-sm/6 text-gray-400\">Already have an account?&nbsp;")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -69,13 +69,13 @@ func SignUp(f form.SignUp) templ.Component {
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "Sign Up Here")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "Sign In Here")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = c.Link(c.LinkAttrs{Href: "/ui/sign-up"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = c.Link(c.LinkAttrs{Href: "/ui/sign-in"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
