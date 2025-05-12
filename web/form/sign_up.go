@@ -2,6 +2,7 @@ package form
 
 import (
 	"net/mail"
+	"strings"
 )
 
 type SignUp struct {
@@ -15,6 +16,7 @@ func NewSignUp() *SignUp {
 		Form: NewForm(),
 	}
 	su.AddValidator(su.ValidateEmail)
+	su.AddValidator(su.ValidatePassword)
 
 	return su
 }
@@ -25,5 +27,15 @@ func (su *SignUp) ValidateEmail() {
 		su.AddError("Email", "is invalid")
 	} else {
 		su.Email = address.Address
+	}
+}
+
+func (su *SignUp) ValidatePassword() {
+	if strings.TrimSpace(su.Password) == "" {
+		su.AddError("Password", "is required")
+		return
+	}
+	if len(su.Password) < 5 {
+		su.AddError("Password", "is too short")
 	}
 }

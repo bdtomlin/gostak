@@ -21,6 +21,9 @@ func PostSignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	suf.Validate()
-	page.SignUpForm(*suf).Render(r.Context(), w)
+	if suf.IsValid() {
+		// do sign up stuff
+	} else {
+		page.SignUpForm(*suf).Render(r.Context(), w)
+	}
 }

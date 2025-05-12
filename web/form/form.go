@@ -26,6 +26,14 @@ func (f *Form) AddValidators(validators ...func()) {
 	f.Validators = append(f.Validators, validators...)
 }
 
+func (f *Form) IsValid() bool {
+	f.Validate()
+	if len(f.Errors) > 0 {
+		return false
+	}
+	return true
+}
+
 func (f *Form) Validate() {
 	f.ResetValidation()
 	for _, fn := range f.Validators {
