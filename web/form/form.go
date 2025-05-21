@@ -3,6 +3,8 @@ package form
 import (
 	"fmt"
 	"strings"
+
+	"github.com/gobuffalo/flect"
 )
 
 type Form struct {
@@ -62,8 +64,10 @@ func (f *Form) ErrorsOn(field string) []string {
 
 func (f *Form) InputErrors(field string) string {
 	errsWithName := []string{}
+	fieldLabel := flect.Humanize(field)
+
 	for _, err := range f.ErrorsOn(field) {
-		errsWithName = append(errsWithName, fmt.Sprintf("%s %s", field, err))
+		errsWithName = append(errsWithName, fmt.Sprintf("%s %s", fieldLabel, err))
 	}
 	return strings.Join(errsWithName, ", ")
 }

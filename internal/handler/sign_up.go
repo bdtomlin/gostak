@@ -21,9 +21,10 @@ func PostSignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if suf.IsValid() {
-		// do sign up stuff
-	} else {
+	err = suf.Submit()
+	if err != nil {
 		page.SignUpForm(*suf).Render(r.Context(), w)
+		return
 	}
+	http.Redirect(w, r, "/", http.StatusFound)
 }

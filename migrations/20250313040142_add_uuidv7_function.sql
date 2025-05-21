@@ -50,8 +50,9 @@ COMMENT ON FUNCTION uuidv7_extract_timestamp(uuid) IS
 -- +goose StatementEnd
 -- +goose Down
 -- +goose StatementBegin
-drop function if exists uuidv7()
-drop function if exists uuidv7_extract_timestamp()
+drop function if exists uuidv7(timestamptz)
+;
+drop function if exists uuidv7_extract_timestamp(uuid)
 ;
 -- +goose StatementEnd
 

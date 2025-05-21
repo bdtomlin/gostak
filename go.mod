@@ -16,6 +16,7 @@ require (
 
 require (
 	github.com/go-playground/form/v4 v4.2.1 // indirect
+	github.com/gobuffalo/flect v1.0.3 // indirect
 	github.com/gorilla/schema v1.4.1 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
 )

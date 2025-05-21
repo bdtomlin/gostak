@@ -44,6 +44,28 @@ templ SignUpForm(f form.SignUp) {
 			@c.InputError(f.Form, "Email")
 		</div>
 		<div>
+			@c.Label(c.LabelAttrs{For: "FirstName"}) {
+				First Name
+			}
+			@c.Input(c.InputAttrs{
+				Name:  "FirstName",
+				Type:  "text",
+				Value: f.FirstName,
+			})
+			@c.InputError(f.Form, "FirstName")
+		</div>
+		<div>
+			@c.Label(c.LabelAttrs{For: "LastName"}) {
+				Last Name
+			}
+			@c.Input(c.InputAttrs{
+				Name:  "LastName",
+				Type:  "text",
+				Value: f.LastName,
+			})
+			@c.InputError(f.Form, "LastName")
+		</div>
+		<div>
 			@c.Label(c.LabelAttrs{For: "Password"}) {
 				Password
 			}
@@ -56,7 +78,7 @@ templ SignUpForm(f form.SignUp) {
 		</div>
 		<div>
 			@c.Button("default") {
-				Sign In 
+				Sign Up 
 			}
 		</div>
 	}
