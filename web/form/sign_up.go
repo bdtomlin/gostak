@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/bdtomlin/gostak/internal/model"
-	"github.com/bdtomlin/gostak/internal/repo"
 )
 
 type SignUp struct {
@@ -15,6 +14,7 @@ type SignUp struct {
 	LastName  string
 	Email     string
 	Password  string
+	UserRepo  model.UserRepo
 }
 
 func NewSignUp() *SignUp {
@@ -37,7 +37,7 @@ func (su *SignUp) ValidateEmail() {
 	} else {
 		su.Email = address.Address
 	}
-	exists, err := repo.UserEmailExists(su.Email)
+	exists, err := su.UserRepo.UserEmailExists(su.Email)
 	if err != nil {
 		su.AddError("Email", err.Error())
 		return
@@ -75,7 +75,7 @@ func (su *SignUp) Submit() error {
 	if !su.IsValid() {
 		return fmt.Errorf("Invalid Sign Up")
 	}
-	err := repo.InsertUser(model.User{
+	err := su.UserRepo.InsertUser(model.User{
 		Email:          su.Email,
 		FirstName:      su.FirstName,
 		LastName:       su.LastName,

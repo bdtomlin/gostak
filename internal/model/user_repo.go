@@ -1,14 +1,15 @@
-package repo
+package model
 
 import (
 	"fmt"
 
-	"github.com/bdtomlin/gostak/internal/model"
 	"github.com/google/uuid"
 )
 
-func ListUsers() ([]model.User, error) {
-	var users []model.User
+type UserRepo struct{}
+
+func (ur *UserRepo) ListUsers() ([]User, error) {
+	var users []User
 	err := DB.Select(&users, "select * from users")
 	if err != nil {
 		return users, err
@@ -16,7 +17,7 @@ func ListUsers() ([]model.User, error) {
 	return users, nil
 }
 
-func UserEmailExists(email string) (bool, error) {
+func (ur *UserRepo) UserEmailExists(email string) (bool, error) {
 	var exists bool
 	err := DB.Get(&exists, "select exists(select 1 from users where email = $1)", email)
 	if err != nil {
@@ -25,8 +26,8 @@ func UserEmailExists(email string) (bool, error) {
 	return exists, nil
 }
 
-func GetUser(strID string) (model.User, error) {
-	var user model.User
+func (ur *UserRepo) GetUser(strID string) (User, error) {
+	var user User
 
 	uuid, err := uuid.Parse(strID)
 	if err != nil {
@@ -40,7 +41,7 @@ func GetUser(strID string) (model.User, error) {
 	return user, nil
 }
 
-func InsertUser(user model.User) error {
+func (ur *UserRepo) InsertUser(user User) error {
 	query := `INSERT INTO users (email, first_name, last_name, hashed_password) 
 						VALUES (:email, :first_name, :last_name, :hashed_password) 
             RETURNING *`

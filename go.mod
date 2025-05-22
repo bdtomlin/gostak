@@ -19,4 +19,5 @@ require (
 	github.com/gobuffalo/flect v1.0.3 // indirect
 	github.com/gorilla/schema v1.4.1 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
+	golang.org/x/crypto v0.38.0 // indirect
 )

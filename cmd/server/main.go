@@ -5,14 +5,12 @@ import (
 	"net/http"
 
 	"github.com/bdtomlin/gostak/internal/assets"
-	"github.com/bdtomlin/gostak/internal/repo"
+	"github.com/bdtomlin/gostak/internal/model"
 	"github.com/bdtomlin/gostak/internal/router"
-	_ "github.com/joho/godotenv/autoload"
-	_ "github.com/lib/pq"
 )
 
 func main() {
-	repo.Init()
+	model.Init()
 	assets.LoadAssetMap()
 	router := router.NewRouter()
 	slog.Info("Listening on :8888")
