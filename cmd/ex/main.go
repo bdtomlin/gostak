@@ -2,25 +2,16 @@ package main
 
 import (
 	"fmt"
-	"net/mail"
 
 	"github.com/bdtomlin/gostak/internal/repo"
+	"github.com/bdtomlin/gostak/web/component"
 )
 
 func main() {
 	repo.Init()
-	add, err := mail.ParseAddress("bob bob<bob@bob.com>")
-	if err != nil {
-		fmt.Println("Error:", err)
-	}
-	fmt.Println(add.Name)
-	fmt.Println(add.Address)
 
-	add, err = mail.ParseAddress("bobb")
-	if err != nil {
-		fmt.Println("Error:", err)
-	} else {
-		fmt.Println(add.Name)
-		fmt.Println(add.Address)
-	}
+	fmt.Println(component.CssClass("one one", "two two"))
+	fmt.Println(component.CssClassOverride("one one", "two two"))
+	fmt.Println(component.CssClassOverride("one one", "two two", "three three"))
+	fmt.Println(component.CssClassOverride("one one", " "))
 }

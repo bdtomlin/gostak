@@ -5,6 +5,12 @@ import (
 	"strings"
 )
 
+templ Link(la LinkAttrs) {
+	<a href={ templ.SafeURL(la.Href) } { la.ToAttr()... }>
+		{ children... }
+	</a>
+}
+
 type LinkAttrs struct {
 	Href          string
 	ID            string
@@ -15,36 +21,45 @@ type LinkAttrs struct {
 	OverrideClass bool
 }
 
-const defaultClass string = "font-semibold text-teal-500 hover:text-teal-400"
-
-func (la *LinkAttrs) ToAttrs() templ.Attributes {
-	attrs := templ.Attributes{}
-
-	if la.ID != "" {
-		attrs["id"] = la.ID
-
+func (la *LinkAttrs) ToAttr() templ.Attributes {
+	attrs := templ.Attributes{
+		"href":  templ.SafeURL(la.Href),
+		"class": la.ClassAttr(),
 	}
+	attrs = la.AddIDAttr(attrs)
+	attrs = la.AddHxMethod(attrs)
+	attrs = la.AddHxSwap(attrs)
+	return attrs
+}
+
+func (la *LinkAttrs) ClassAttr() string {
+	defaultClass := "font-semibold text-teal-500 hover:text-teal-400"
 
 	if la.OverrideClass {
-		attrs["class"] = la.Class
+		return CssClassOverride(defaultClass, la.Class)
 	} else {
-		attrs["class"] = fmt.Sprintf("%s %s", defaultClass, la.Class)
+		return CssClass(defaultClass, la.Class)
 	}
+}
 
+func (la *LinkAttrs) AddIDAttr(attrs templ.Attributes) templ.Attributes {
+	if la.ID != "" {
+		attrs["id"] = la.ID
+	}
+	return attrs
+}
+
+func (la *LinkAttrs) AddHxMethod(attrs templ.Attributes) templ.Attributes {
 	if la.HxMethod != "" {
 		la.HxMethod = strings.ToLower(la.HxMethod)
 		attrs[fmt.Sprintf("hx-%s", la.HxMethod)] = la.HxAction
 	}
-
-	if la.HxSwap != "" {
-		attrs["hx-swap"] = la.HxSwap
-	}
-
 	return attrs
 }
 
-templ Link(la LinkAttrs) {
-	<a href={ templ.SafeURL(la.Href) } { la.ToAttrs()... }>
-		{ children... }
-	</a>
+func (la *LinkAttrs) AddHxSwap(attrs templ.Attributes) templ.Attributes {
+	if la.HxSwap != "" {
+		attrs["hx-swap"] = la.HxSwap
+	}
+	return attrs
 }

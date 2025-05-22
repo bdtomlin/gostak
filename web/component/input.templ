@@ -2,8 +2,11 @@ package component
 
 import (
 	"log"
-	"fmt"
 )
+
+templ Input(ia InputAttrs) {
+	<input { ia.ToAttrs()... }/>
+}
 
 type InputAttrs struct {
 	Type         string
@@ -16,37 +19,49 @@ type InputAttrs struct {
 }
 
 func (ia InputAttrs) ToAttrs() templ.Attributes {
-	if ia.Name == "" {
-		log.Fatal("component.InputAttrs: Missing Attr 'Name'")
-	}
-
-	if ia.ID == "" {
-		ia.ID = ia.Name
-	}
-
-	if ia.Type == "" {
-		ia.Type = "text"
-	}
-
-	defaultClass := "block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-teal-500 sm:text-sm/6"
-	ia.Class = fmt.Sprintf("%v %v", defaultClass, ia.Class)
-
 	attrs := templ.Attributes{
-		"name":     ia.Name,
-		"type":     ia.Type,
+		"name":     ia.NameAttr(),
+		"type":     ia.TypeAttr(),
 		"value":    ia.Value,
-		"id":       ia.ID,
+		"id":       ia.IDAttr(),
 		"required": ia.Required,
-		"class":    ia.Class,
+		"class":    ia.ClassAttr(),
 	}
 
-	if ia.Autocomplete != "" {
-		attrs["autocomplete"] = ia.Autocomplete
-	}
+	attrs = ia.AddAutocompleteAttr(attrs)
 
 	return attrs
 }
 
-templ Input(ia InputAttrs) {
-	<input { ia.ToAttrs()... }/>
+func (ia InputAttrs) NameAttr() string {
+	if ia.Name == "" {
+		log.Fatal("component.InputAttrs: Missing Attr 'Name'")
+	}
+	return ia.Name
+}
+
+func (ia InputAttrs) IDAttr() string {
+	if ia.ID == "" {
+		return ia.Name
+	}
+	return ia.ID
+}
+
+func (ia InputAttrs) TypeAttr() string {
+	if ia.Type == "" {
+		return "text"
+	}
+	return ia.Type
+}
+
+func (ia InputAttrs) ClassAttr() string {
+	defaultClass := "block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-teal-500 sm:text-sm/6"
+	return CssClass(defaultClass, ia.Class)
+}
+
+func (ia InputAttrs) AddAutocompleteAttr(attrs templ.Attributes) templ.Attributes {
+	if ia.Autocomplete != "" {
+		attrs["autocomplete"] = ia.Autocomplete
+	}
+	return attrs
 }

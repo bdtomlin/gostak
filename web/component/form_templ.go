@@ -11,30 +11,6 @@ import templruntime "github.com/a-h/templ/runtime"
 import "fmt"
 import "strings"
 
-type FormAttrs struct {
-	ID       string
-	Class    string
-	HxMethod string
-	HxAction string
-	HxSwap   string
-}
-
-func (fa *FormAttrs) ToAttrs() templ.Attributes {
-	attrs := templ.Attributes{
-		"class": fa.Class,
-		"id":    fa.ID,
-	}
-	if fa.HxMethod != "" {
-		fa.HxMethod = strings.ToLower(fa.HxMethod)
-		attrs[fmt.Sprintf("hx-%s", fa.HxMethod)] = fa.HxAction
-	}
-	if fa.HxSwap != "" {
-		attrs["hx-swap"] = fa.HxSwap
-	}
-
-	return attrs
-}
-
 func Form(fa FormAttrs) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -112,7 +88,7 @@ func CSRF() templ.Component {
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(ctx.Value("gorilla.csrf.Token").(string))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/form.templ`, Line: 38, Col: 96}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/form.templ`, Line: 14, Col: 96}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
@@ -124,6 +100,38 @@ func CSRF() templ.Component {
 		}
 		return nil
 	})
+}
+
+type FormAttrs struct {
+	ID       string
+	Class    string
+	HxMethod string
+	HxAction string
+	HxSwap   string
+}
+
+func (fa *FormAttrs) ToAttrs() templ.Attributes {
+	attrs := templ.Attributes{
+		"class": fa.Class,
+		"id":    fa.ID,
+	}
+	attrs = fa.AddHxMethod(attrs)
+	attrs = fa.AddHxSwap(attrs)
+
+	return attrs
+}
+func (fa *FormAttrs) AddHxMethod(attrs templ.Attributes) templ.Attributes {
+	if fa.HxMethod != "" {
+		fa.HxMethod = strings.ToLower(fa.HxMethod)
+		attrs[fmt.Sprintf("hx-%s", fa.HxMethod)] = fa.HxAction
+	}
+	return attrs
+}
+func (fa *FormAttrs) AddHxSwap(attrs templ.Attributes) templ.Attributes {
+	if fa.HxSwap != "" {
+		attrs["hx-swap"] = fa.HxSwap
+	}
+	return attrs
 }
 
 var _ = templruntime.GeneratedTemplate

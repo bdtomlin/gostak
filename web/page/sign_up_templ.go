@@ -75,7 +75,7 @@ func SignUp(f form.SignUp) templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = c.Link(c.LinkAttrs{Href: "/ui/sign-in"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = c.Link(c.LinkAttrs{Href: "/sign-in"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var3), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -300,7 +300,7 @@ func SignUpForm(f form.SignUp) templ.Component {
 				}
 				return nil
 			})
-			templ_7745c5c3_Err = c.Button("default").Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = c.Button(c.ButtonAttrs{Type: "submit", Variant: "default"}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var10), templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

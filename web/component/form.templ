@@ -3,6 +3,17 @@ package component
 import "fmt"
 import "strings"
 
+templ Form(fa FormAttrs) {
+	<form { fa.ToAttrs()... }>
+		@CSRF()
+		{ children... }
+	</form>
+}
+
+templ CSRF() {
+	<input type="hidden" name="gorilla.csrf.Token" value={ ctx.Value("gorilla.csrf.Token").(string) }/>
+}
+
 type FormAttrs struct {
 	ID       string
 	Class    string
@@ -16,24 +27,21 @@ func (fa *FormAttrs) ToAttrs() templ.Attributes {
 		"class": fa.Class,
 		"id":    fa.ID,
 	}
+	attrs = fa.AddHxMethod(attrs)
+	attrs = fa.AddHxSwap(attrs)
+
+	return attrs
+}
+func (fa *FormAttrs) AddHxMethod(attrs templ.Attributes) templ.Attributes {
 	if fa.HxMethod != "" {
 		fa.HxMethod = strings.ToLower(fa.HxMethod)
 		attrs[fmt.Sprintf("hx-%s", fa.HxMethod)] = fa.HxAction
 	}
+	return attrs
+}
+func (fa *FormAttrs) AddHxSwap(attrs templ.Attributes) templ.Attributes {
 	if fa.HxSwap != "" {
 		attrs["hx-swap"] = fa.HxSwap
 	}
-
 	return attrs
-}
-
-templ Form(fa FormAttrs) {
-	<form { fa.ToAttrs()... }>
-		@CSRF()
-		{ children... }
-	</form>
-}
-
-templ CSRF() {
-	<input type="hidden" name="gorilla.csrf.Token" value={ ctx.Value("gorilla.csrf.Token").(string) }/>
 }

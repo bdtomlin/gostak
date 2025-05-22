@@ -1,11 +1,43 @@
 package component
 
-templ Button(variant string) {
-	<button
-		type="submit"
-		class={ "flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
-      templ.KV("bg-teal-600 hover:bg-teal-500 text-white", variant == "default") }
-	>
+import (
+	"slices"
+	"log"
+)
+
+templ Button(ba ButtonAttrs) {
+	<button { ba.ToAttrs()... }>
 		{ children... }
 	</button>
+}
+
+type ButtonAttrs struct {
+	Type    string
+	Variant string
+}
+
+func (ba *ButtonAttrs) ToAttrs() templ.Attributes {
+	return templ.Attributes{
+		"type":  ba.TypeAttr(),
+		"class": ba.ClassAttr(),
+	}
+}
+
+func (ba *ButtonAttrs) TypeAttr() string {
+	validTypes := []string{"submit", "button"}
+	if !slices.Contains(validTypes, ba.Type) {
+		log.Fatal("component.ButtonAttrs: Invalid Attr 'Type'")
+	}
+	return ba.Type
+}
+
+func (ba *ButtonAttrs) ClassAttr() string {
+	baseCss := "flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+	switch ba.Variant {
+	case "default":
+		return CssClass(baseCss, "bg-teal-600 hover:bg-teal-500 text-white")
+	default:
+		log.Fatal("component.ButtonAttrs.VariantClass: Invalid Attr 'Variant'")
+		return ""
+	}
 }

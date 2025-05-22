@@ -8,7 +8,12 @@ package component
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Button(variant string) templ.Component {
+import (
+	"log"
+	"slices"
+)
+
+func Button(ba ButtonAttrs) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -29,26 +34,15 @@ func Button(variant string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var2 = []any{"flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
-			templ.KV("bg-teal-600 hover:bg-teal-500 text-white", variant == "default")}
-		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var2...)
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<button")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<button type=\"submit\" class=\"")
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, ba.ToAttrs())
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var2).String())
-		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `web/component/button.templ`, Line: 1, Col: 0}
-		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
-		if templ_7745c5c3_Err != nil {
-			return templ_7745c5c3_Err
-		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, ">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -62,6 +56,37 @@ func Button(variant string) templ.Component {
 		}
 		return nil
 	})
+}
+
+type ButtonAttrs struct {
+	Type    string
+	Variant string
+}
+
+func (ba *ButtonAttrs) ToAttrs() templ.Attributes {
+	return templ.Attributes{
+		"type":  ba.TypeAttr(),
+		"class": ba.ClassAttr(),
+	}
+}
+
+func (ba *ButtonAttrs) TypeAttr() string {
+	validTypes := []string{"submit", "button"}
+	if !slices.Contains(validTypes, ba.Type) {
+		log.Fatal("component.ButtonAttrs: Invalid Attr 'Type'")
+	}
+	return ba.Type
+}
+
+func (ba *ButtonAttrs) ClassAttr() string {
+	baseCss := "flex w-full justify-center rounded-md px-3 py-1.5 text-sm/6 font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+	switch ba.Variant {
+	case "default":
+		return CssClass(baseCss, "bg-teal-600 hover:bg-teal-500 text-white")
+	default:
+		log.Fatal("component.ButtonAttrs.VariantClass: Invalid Attr 'Variant'")
+		return ""
+	}
 }
 
 var _ = templruntime.GeneratedTemplate

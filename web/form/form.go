@@ -64,10 +64,10 @@ func (f *Form) ErrorsOn(field string) []string {
 
 func (f *Form) InputErrors(field string) string {
 	errsWithName := []string{}
-	fieldLabel := flect.Humanize(field)
+	humanizedField := flect.Humanize(field)
 
 	for _, err := range f.ErrorsOn(field) {
-		errsWithName = append(errsWithName, fmt.Sprintf("%s %s", fieldLabel, err))
+		errsWithName = append(errsWithName, fmt.Sprintf("%s %s", humanizedField, err))
 	}
 	return strings.Join(errsWithName, ", ")
 }

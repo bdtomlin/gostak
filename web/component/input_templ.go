@@ -9,51 +9,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"fmt"
 	"log"
 )
-
-type InputAttrs struct {
-	Type         string
-	Name         string
-	ID           string
-	Autocomplete string
-	Required     bool
-	Class        string
-	Value        string
-}
-
-func (ia InputAttrs) ToAttrs() templ.Attributes {
-	if ia.Name == "" {
-		log.Fatal("component.InputAttrs: Missing Attr 'Name'")
-	}
-
-	if ia.ID == "" {
-		ia.ID = ia.Name
-	}
-
-	if ia.Type == "" {
-		ia.Type = "text"
-	}
-
-	defaultClass := "block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-teal-500 sm:text-sm/6"
-	ia.Class = fmt.Sprintf("%v %v", defaultClass, ia.Class)
-
-	attrs := templ.Attributes{
-		"name":     ia.Name,
-		"type":     ia.Type,
-		"value":    ia.Value,
-		"id":       ia.ID,
-		"required": ia.Required,
-		"class":    ia.Class,
-	}
-
-	if ia.Autocomplete != "" {
-		attrs["autocomplete"] = ia.Autocomplete
-	}
-
-	return attrs
-}
 
 func Input(ia InputAttrs) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -90,6 +47,64 @@ func Input(ia InputAttrs) templ.Component {
 		}
 		return nil
 	})
+}
+
+type InputAttrs struct {
+	Type         string
+	Name         string
+	ID           string
+	Autocomplete string
+	Required     bool
+	Class        string
+	Value        string
+}
+
+func (ia InputAttrs) ToAttrs() templ.Attributes {
+	attrs := templ.Attributes{
+		"name":     ia.NameAttr(),
+		"type":     ia.TypeAttr(),
+		"value":    ia.Value,
+		"id":       ia.IDAttr(),
+		"required": ia.Required,
+		"class":    ia.ClassAttr(),
+	}
+
+	attrs = ia.AddAutocompleteAttr(attrs)
+
+	return attrs
+}
+
+func (ia InputAttrs) NameAttr() string {
+	if ia.Name == "" {
+		log.Fatal("component.InputAttrs: Missing Attr 'Name'")
+	}
+	return ia.Name
+}
+
+func (ia InputAttrs) IDAttr() string {
+	if ia.ID == "" {
+		return ia.Name
+	}
+	return ia.ID
+}
+
+func (ia InputAttrs) TypeAttr() string {
+	if ia.Type == "" {
+		return "text"
+	}
+	return ia.Type
+}
+
+func (ia InputAttrs) ClassAttr() string {
+	defaultClass := "block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-teal-500 sm:text-sm/6"
+	return CssClass(defaultClass, ia.Class)
+}
+
+func (ia InputAttrs) AddAutocompleteAttr(attrs templ.Attributes) templ.Attributes {
+	if ia.Autocomplete != "" {
+		attrs["autocomplete"] = ia.Autocomplete
+	}
+	return attrs
 }
 
 var _ = templruntime.GeneratedTemplate

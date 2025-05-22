@@ -13,7 +13,7 @@ templ SignIn() {
 			@SignInForm("", "")
 			<p class="mt-10 text-center text-sm/6 text-gray-400">
 				Not a member?&nbsp;
-				@c.Link(c.LinkAttrs{Href: "/ui/sign-up"}) {
+				@c.Link(c.LinkAttrs{Href: "/sign-up"}) {
 					Sign Up Here
 				}
 			</p>
@@ -54,7 +54,7 @@ templ SignInForm(email, password string) {
 			)
 		</div>
 		<div>
-			@c.Button("default") {
+			@c.Button(c.ButtonAttrs{Type: "submit", Variant: "default"}) {
 				Sign In
 			}
 		</div>

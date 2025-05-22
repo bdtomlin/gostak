@@ -13,44 +13,6 @@ import (
 	"strings"
 )
 
-type LinkAttrs struct {
-	Href          string
-	ID            string
-	Class         string
-	HxMethod      string
-	HxAction      string
-	HxSwap        string
-	OverrideClass bool
-}
-
-const defaultClass string = "font-semibold text-teal-500 hover:text-teal-400"
-
-func (la *LinkAttrs) ToAttrs() templ.Attributes {
-	attrs := templ.Attributes{}
-
-	if la.ID != "" {
-		attrs["id"] = la.ID
-
-	}
-
-	if la.OverrideClass {
-		attrs["class"] = la.Class
-	} else {
-		attrs["class"] = fmt.Sprintf("%s %s", defaultClass, la.Class)
-	}
-
-	if la.HxMethod != "" {
-		la.HxMethod = strings.ToLower(la.HxMethod)
-		attrs[fmt.Sprintf("hx-%s", la.HxMethod)] = la.HxAction
-	}
-
-	if la.HxSwap != "" {
-		attrs["hx-swap"] = la.HxSwap
-	}
-
-	return attrs
-}
-
 func Link(la LinkAttrs) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -85,7 +47,7 @@ func Link(la LinkAttrs) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, la.ToAttrs())
+		templ_7745c5c3_Err = templ.RenderAttributes(ctx, templ_7745c5c3_Buffer, la.ToAttr())
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -103,6 +65,59 @@ func Link(la LinkAttrs) templ.Component {
 		}
 		return nil
 	})
+}
+
+type LinkAttrs struct {
+	Href          string
+	ID            string
+	Class         string
+	HxMethod      string
+	HxAction      string
+	HxSwap        string
+	OverrideClass bool
+}
+
+func (la *LinkAttrs) ToAttr() templ.Attributes {
+	attrs := templ.Attributes{
+		"href":  templ.SafeURL(la.Href),
+		"class": la.ClassAttr(),
+	}
+	attrs = la.AddIDAttr(attrs)
+	attrs = la.AddHxMethod(attrs)
+	attrs = la.AddHxSwap(attrs)
+	return attrs
+}
+
+func (la *LinkAttrs) ClassAttr() string {
+	defaultClass := "font-semibold text-teal-500 hover:text-teal-400"
+
+	if la.OverrideClass {
+		return CssClassOverride(defaultClass, la.Class)
+	} else {
+		return CssClass(defaultClass, la.Class)
+	}
+}
+
+func (la *LinkAttrs) AddIDAttr(attrs templ.Attributes) templ.Attributes {
+	if la.ID != "" {
+		attrs["id"] = la.ID
+	}
+	return attrs
+}
+
+func (la *LinkAttrs) AddHxMethod(attrs templ.Attributes) templ.Attributes {
+	if la.HxMethod != "" {
+		la.HxMethod = strings.ToLower(la.HxMethod)
+		attrs[fmt.Sprintf("hx-%s", la.HxMethod)] = la.HxAction
+	}
+	return attrs
+}
+
+func (la *LinkAttrs) AddHxSwap(attrs templ.Attributes) templ.Attributes {
+	if la.HxSwap != "" {
+		attrs["hx-swap"] = la.HxSwap
+	}
+	return attrs
 }
 
 var _ = templruntime.GeneratedTemplate
