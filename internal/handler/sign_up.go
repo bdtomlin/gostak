@@ -26,5 +26,5 @@ func PostSignUp(w http.ResponseWriter, r *http.Request) {
 		page.SignUpForm(*suf).Render(r.Context(), w)
 		return
 	}
-	http.Redirect(w, r, "/", http.StatusFound)
+	Redirect(w, r, "/")
 }

@@ -5,16 +5,18 @@ import (
 	"net/mail"
 	"strings"
 
+	"github.com/bdtomlin/gostak/internal/auth"
 	"github.com/bdtomlin/gostak/internal/model"
 )
 
 type SignUp struct {
-	*Form     `schema:"-"`
-	FirstName string
-	LastName  string
-	Email     string
-	Password  string
-	UserRepo  model.UserRepo
+	*Form          `schema:"-"`
+	FirstName      string
+	LastName       string
+	Email          string
+	Password       string
+	HashedPassword string `schema:"-"`
+	UserRepo       model.UserRepo
 }
 
 func NewSignUp() *SignUp {
@@ -52,8 +54,15 @@ func (su *SignUp) ValidatePassword() {
 		su.AddError("Password", "is required")
 		return
 	}
-	if len(su.Password) < 5 {
-		su.AddError("Password", "is too short")
+	err := auth.ValidatePassword(su.Password)
+	if err != nil {
+		su.AddError("Password", err.Error())
+	}
+	hp, err := auth.HashPassword(su.Password)
+	if err != nil {
+		su.AddError("Password", err.Error())
+	} else {
+		su.HashedPassword = hp
 	}
 }
 
@@ -79,7 +88,7 @@ func (su *SignUp) Submit() error {
 		Email:          su.Email,
 		FirstName:      su.FirstName,
 		LastName:       su.LastName,
-		HashedPassword: su.Password,
+		HashedPassword: su.HashedPassword,
 	})
 
 	if err != nil {

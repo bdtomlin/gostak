@@ -20,3 +20,7 @@ func DecodeParams(dst any, r *http.Request) error {
 	}
 	return nil
 }
+
+func Redirect(w http.ResponseWriter, r *http.Request, location string) {
+	w.Header().Add("HX-Location", location)
+}
