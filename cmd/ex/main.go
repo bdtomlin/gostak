@@ -8,8 +8,7 @@ import (
 )
 
 func main() {
-	model.Init()
-	defer model.Close()
+	defer model.Init()()
 
 	fmt.Println(component.CssClass("one one", "two two"))
 	fmt.Println(component.CssClassOverride("one one", "two two"))

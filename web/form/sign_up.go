@@ -84,7 +84,7 @@ func (su *SignUp) Submit() error {
 	if !su.IsValid() {
 		return fmt.Errorf("Invalid Sign Up")
 	}
-	err := su.UserRepo.InsertUser(model.User{
+	err := su.UserRepo.InsertUser(&model.User{
 		Email:          su.Email,
 		FirstName:      su.FirstName,
 		LastName:       su.LastName,

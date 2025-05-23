@@ -9,9 +9,10 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import "github.com/bdtomlin/gostak/web/layout"
+import "github.com/bdtomlin/gostak/web/form"
 import c "github.com/bdtomlin/gostak/web/component"
 
-func SignIn() templ.Component {
+func SignIn(f *form.SignIn) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -48,7 +49,7 @@ func SignIn() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = SignInForm("", "").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = SignInForm(f).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -92,7 +93,7 @@ func SignIn() templ.Component {
 	})
 }
 
-func SignInForm(email, password string) templ.Component {
+func SignInForm(f *form.SignIn) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -154,7 +155,7 @@ func SignInForm(email, password string) templ.Component {
 			templ_7745c5c3_Err = c.Input(
 				c.InputAttrs{
 					Name:  "email",
-					Value: email,
+					Value: f.Email,
 				},
 			).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
@@ -189,7 +190,7 @@ func SignInForm(email, password string) templ.Component {
 			templ_7745c5c3_Err = c.Input(
 				c.InputAttrs{
 					Name:         "password",
-					Value:        password,
+					Value:        f.Password,
 					Type:         "password",
 					Autocomplete: "current-password",
 				},
@@ -235,6 +236,7 @@ func SignInForm(email, password string) templ.Component {
 			HxMethod: "post",
 			HxAction: "/sign-in",
 			HxSwap:   "outerHTML",
+			Errors:   f.ErrorsOn("Form"),
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var5), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err

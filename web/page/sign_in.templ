@@ -1,16 +1,17 @@
 package page
 
 import "github.com/bdtomlin/gostak/web/layout"
+import "github.com/bdtomlin/gostak/web/form"
 import c "github.com/bdtomlin/gostak/web/component"
 
-templ SignIn() {
+templ SignIn(f *form.SignIn) {
 	@layout.Auth() {
 		<div class="pt-12 sm:mx-auto sm:w-full sm:max-w-sm">
 			<img class="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&shade=600" alt="Your Company"/>
 			<h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-white">Sign in to your account</h2>
 		</div>
 		<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-			@SignInForm("", "")
+			@SignInForm(f)
 			<p class="mt-10 text-center text-sm/6 text-gray-400">
 				Not a member?&nbsp;
 				@c.Link(c.LinkAttrs{Href: "/sign-up"}) {
@@ -21,13 +22,14 @@ templ SignIn() {
 	}
 }
 
-templ SignInForm(email, password string) {
+templ SignInForm(f *form.SignIn) {
 	@c.Form(c.FormAttrs{
 		Class:    "space-y-6",
 		ID:       "sign-in-form",
 		HxMethod: "post",
 		HxAction: "/sign-in",
 		HxSwap:   "outerHTML",
+		Errors:   f.ErrorsOn("Form"),
 	}) {
 		<div>
 			@c.Label(c.LabelAttrs{For: "email"}) {
@@ -36,7 +38,7 @@ templ SignInForm(email, password string) {
 			@c.Input(
 				c.InputAttrs{
 					Name:  "email",
-					Value: email,
+					Value: f.Email,
 				},
 			)
 		</div>
@@ -47,7 +49,7 @@ templ SignInForm(email, password string) {
 			@c.Input(
 				c.InputAttrs{
 					Name:         "password",
-					Value:        password,
+					Value:        f.Password,
 					Type:         "password",
 					Autocomplete: "current-password",
 				},
