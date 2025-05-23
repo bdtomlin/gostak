@@ -4,7 +4,7 @@ import "github.com/bdtomlin/gostak/web/layout"
 import "github.com/bdtomlin/gostak/web/form"
 import c "github.com/bdtomlin/gostak/web/component"
 
-templ SignUp(f form.SignUp) {
+templ SignUp(f *form.SignUp) {
 	@layout.Auth() {
 		<div class="pt-12 sm:mx-auto sm:w-full sm:max-w-sm">
 			<img class="mx-auto h-10 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&shade=600" alt="Your Company"/>
@@ -24,7 +24,7 @@ templ SignUp(f form.SignUp) {
 	}
 }
 
-templ SignUpForm(f form.SignUp) {
+templ SignUpForm(f *form.SignUp) {
 	@c.Form(c.FormAttrs{
 		Class:    "space-y-6",
 		ID:       "sign-up-form",

@@ -12,7 +12,7 @@ import "github.com/bdtomlin/gostak/web/layout"
 import "github.com/bdtomlin/gostak/web/form"
 import c "github.com/bdtomlin/gostak/web/component"
 
-func SignIn(f form.SignIn) templ.Component {
+func SignIn(f *form.SignIn) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -45,7 +45,7 @@ func SignIn(f form.SignIn) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"pt-12 sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign in to your account</h2></div><div class=\"mt-10 sm:mx-auto sm:w-full sm:max-w-sm\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"pt-12 sm:mx-auto sm:w-full sm:max-w-sm\"><img class=\"mx-auto h-10 w-auto\" src=\"https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=teal&amp;shade=600\" alt=\"Your Company\"><h2 class=\"mt-10 text-center text-2xl/9 font-bold tracking-tight text-white\">Sign in to your account</h2></div><div class=\"mt-10 mx-6 sm:mx-auto sm:w-full sm:max-w-sm\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -93,7 +93,7 @@ func SignIn(f form.SignIn) templ.Component {
 	})
 }
 
-func SignInForm(f form.SignIn) templ.Component {
+func SignInForm(f *form.SignIn) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

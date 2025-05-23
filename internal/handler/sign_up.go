@@ -9,7 +9,7 @@ import (
 
 func GetSignUp(w http.ResponseWriter, r *http.Request) {
 	f := form.NewSignUp()
-	page.SignUp(*f).Render(r.Context(), w)
+	page.SignUp(f).Render(r.Context(), w)
 }
 
 func PostSignUp(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +23,7 @@ func PostSignUp(w http.ResponseWriter, r *http.Request) {
 
 	err = f.Submit()
 	if err != nil {
-		page.SignUpForm(*f).Render(r.Context(), w)
+		page.SignUpForm(f).Render(r.Context(), w)
 		return
 	}
 	Redirect(w, r, "/")
