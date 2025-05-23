@@ -1,8 +1,6 @@
 package form
 
 import (
-	"fmt"
-
 	"github.com/bdtomlin/gostak/internal/model"
 )
 
@@ -21,13 +19,11 @@ func NewSignIn() *SignIn {
 }
 
 func (si *SignIn) Submit() (*model.User, error) {
-	if !si.IsValid() {
-		return nil, fmt.Errorf("Invalid Sign Up")
-	}
 	user, err := si.UserRepo.AuthenticateUser(si.Email, si.Password)
 
 	if err != nil {
 		si.AddError("Form", "Invalid email/password combination")
+		si.Password = ""
 		return nil, err
 	}
 

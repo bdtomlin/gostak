@@ -23,10 +23,12 @@ func NewSignUp() *SignUp {
 	su := &SignUp{
 		Form: NewForm(),
 	}
-	su.AddValidator(su.ValidateEmail)
-	su.AddValidator(su.ValidatePassword)
-	su.AddValidator(su.ValidateFirstName)
-	su.AddValidator(su.ValidateLastName)
+	su.AddValidators(
+		su.ValidateEmail,
+		su.ValidatePassword,
+		su.ValidateFirstName,
+		su.ValidateLastName,
+	)
 
 	return su
 }

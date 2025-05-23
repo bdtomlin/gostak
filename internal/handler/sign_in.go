@@ -10,7 +10,7 @@ import (
 
 func GetSignIn(w http.ResponseWriter, r *http.Request) {
 	f := form.NewSignIn()
-	page.SignIn(f).Render(r.Context(), w)
+	page.SignIn(*f).Render(r.Context(), w)
 }
 
 func PostSignIn(w http.ResponseWriter, r *http.Request) {
@@ -24,9 +24,10 @@ func PostSignIn(w http.ResponseWriter, r *http.Request) {
 
 	user, err := f.Submit()
 	if err != nil {
-		page.SignInForm(f).Render(r.Context(), w)
+		page.SignInForm(*f).Render(r.Context(), w)
 		return
 	}
+	SetCookie(w, "email", user.Email)
 	fmt.Println(user)
 	Redirect(w, r, "/")
 

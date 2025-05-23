@@ -10,7 +10,7 @@ import (
 
 type UserRepo struct{}
 
-func (ur *UserRepo) ListUsers() ([]User, error) {
+func (ur UserRepo) ListUsers() ([]User, error) {
 	var users []User
 	err := DB.Select(&users, "select * from users")
 	if err != nil {
@@ -19,7 +19,7 @@ func (ur *UserRepo) ListUsers() ([]User, error) {
 	return users, nil
 }
 
-func (ur *UserRepo) UserEmailExists(email string) (bool, error) {
+func (ur UserRepo) UserEmailExists(email string) (bool, error) {
 	var exists bool
 	err := DB.Get(&exists, "select exists(select 1 from users where email = $1)", email)
 	if err != nil {
@@ -28,7 +28,7 @@ func (ur *UserRepo) UserEmailExists(email string) (bool, error) {
 	return exists, nil
 }
 
-func (ur *UserRepo) GetUser(strID string) (*User, error) {
+func (ur UserRepo) GetUser(strID string) (*User, error) {
 	var user User
 
 	uuid, err := uuid.Parse(strID)
@@ -43,7 +43,7 @@ func (ur *UserRepo) GetUser(strID string) (*User, error) {
 	return &user, nil
 }
 
-func (ur *UserRepo) InsertUser(user *User) error {
+func (ur UserRepo) InsertUser(user *User) error {
 	query := `INSERT INTO users (email, first_name, last_name, hashed_password) 
 						VALUES (:email, :first_name, :last_name, :hashed_password) 
             RETURNING *`
@@ -54,7 +54,7 @@ func (ur *UserRepo) InsertUser(user *User) error {
 	return nil
 }
 
-func (ur *UserRepo) AuthenticateUser(email, password string) (*User, error) {
+func (ur UserRepo) AuthenticateUser(email, password string) (*User, error) {
 	email = strings.ToLower(email)
 
 	var user User

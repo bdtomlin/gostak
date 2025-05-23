@@ -26,9 +26,9 @@ templ FormErrors(errors []string) {
 				<div class="ml-3">
 					<h3 class="text-sm font-medium text-red-900">
 						if len(errors) == 1 {
-							There was an error with your submission
+							There was an error
 						} else {
-							There were { strconv.Itoa(len(errors)) } errors with your submission
+							There were { strconv.Itoa(len(errors)) } errors
 						}
 					</h3>
 					<div class="mt-2 text-sm text-red-800">

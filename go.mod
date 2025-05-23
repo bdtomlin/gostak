@@ -8,16 +8,13 @@ require (
 )
 
 require (
+	github.com/gobuffalo/flect v1.0.3
 	github.com/google/uuid v1.6.0
 	github.com/gorilla/csrf v1.7.3
+	github.com/gorilla/schema v1.4.1
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/joho/godotenv v1.5.1
+	golang.org/x/crypto v0.38.0
 )
 
-require (
-	github.com/go-playground/form/v4 v4.2.1 // indirect
-	github.com/gobuffalo/flect v1.0.3 // indirect
-	github.com/gorilla/schema v1.4.1 // indirect
-	github.com/gorilla/securecookie v1.1.2 // indirect
-	golang.org/x/crypto v0.38.0 // indirect
-)
+require github.com/gorilla/securecookie v1.1.2 // indirect

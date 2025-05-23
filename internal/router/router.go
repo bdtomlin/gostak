@@ -15,8 +15,6 @@ func NewRouter() http.Handler {
 	bChain.HandleFunc("/", handler.Index)
 	bChain.HandleFunc("GET /users/{id}", handler.GetUser)
 	bChain.HandleFunc("GET /users", handler.ListUsers)
-	bChain.HandleFunc("GET /set-cookie", handler.SetCookie)
-	bChain.HandleFunc("GET /show-cookie", handler.ShowCookie)
 	bChain.HandleFunc("GET /sign-up", handler.GetSignUp)
 	bChain.HandleFunc("POST /sign-up", handler.PostSignUp)
 	bChain.HandleFunc("GET /sign-in", handler.GetSignIn)

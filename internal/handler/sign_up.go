@@ -8,22 +8,22 @@ import (
 )
 
 func GetSignUp(w http.ResponseWriter, r *http.Request) {
-	suf := form.NewSignUp()
-	page.SignUp(*suf).Render(r.Context(), w)
+	f := form.NewSignUp()
+	page.SignUp(*f).Render(r.Context(), w)
 }
 
 func PostSignUp(w http.ResponseWriter, r *http.Request) {
-	suf := form.NewSignUp()
+	f := form.NewSignUp()
 
-	err := DecodeParams(suf, r)
+	err := DecodeParams(f, r)
 	if err != nil {
 		RenderError500(err, w, r)
 		return
 	}
 
-	err = suf.Submit()
+	err = f.Submit()
 	if err != nil {
-		page.SignUpForm(*suf).Render(r.Context(), w)
+		page.SignUpForm(*f).Render(r.Context(), w)
 		return
 	}
 	Redirect(w, r, "/")
