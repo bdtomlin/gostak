@@ -10,7 +10,8 @@ import (
 )
 
 func main() {
-	model.Init()
+	defer model.Init()()
+
 	assets.LoadAssetMap()
 	router := router.NewRouter()
 	slog.Info("Listening on :8888")
