@@ -7,4 +7,5 @@ type Session struct {
 	UserID     string    `db:"user_id"`
 	TokenHash  string    `db:"token_hash"`
 	InsertedAt time.Time `db:"inserted_at"`
+	Token      string
 }

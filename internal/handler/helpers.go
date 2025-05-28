@@ -6,7 +6,7 @@ import (
 	"github.com/gorilla/schema"
 )
 
-func DecodeParams(dst any, r *http.Request) error {
+func decodeParams(dst any, r *http.Request) error {
 	decoder := schema.NewDecoder()
 	decoder.IgnoreUnknownKeys(true)
 	err := r.ParseForm()
@@ -21,16 +21,6 @@ func DecodeParams(dst any, r *http.Request) error {
 	return nil
 }
 
-func Redirect(w http.ResponseWriter, r *http.Request, location string) {
+func redirect(w http.ResponseWriter, r *http.Request, location string) {
 	w.Header().Add("HX-Location", location)
-}
-
-func SetCookie(w http.ResponseWriter, name, value string) {
-	cookie := http.Cookie{
-		Name:     name,
-		Value:    value,
-		Path:     "/",
-		HttpOnly: true,
-	}
-	http.SetCookie(w, &cookie)
 }

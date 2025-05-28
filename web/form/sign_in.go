@@ -2,6 +2,8 @@ package form
 
 import (
 	"errors"
+	"fmt"
+	"log/slog"
 
 	"github.com/bdtomlin/gostak/internal/model"
 )
@@ -12,6 +14,7 @@ type SignIn struct {
 	Password       string
 	HashedPassword string `schema:"-"`
 	UserRepo       model.UserRepo
+	SessionRepo    model.SessionRepo
 }
 
 func NewSignIn() *SignIn {
@@ -20,7 +23,7 @@ func NewSignIn() *SignIn {
 	}
 }
 
-func (si *SignIn) Submit() (*model.User, error) {
+func (si *SignIn) Submit() (*model.Session, error) {
 	user, err := si.UserRepo.AuthenticateUser(si.Email, si.Password)
 
 	if err != nil {
@@ -28,5 +31,11 @@ func (si *SignIn) Submit() (*model.User, error) {
 		return nil, errors.New("Invalid email/password combination")
 	}
 
-	return user, nil
+	session, err := si.SessionRepo.CreateSession(user.ID)
+	if err != nil {
+		slog.Error(err.Error())
+		return nil, fmt.Errorf("form.SignUp.Submit: %w", err)
+	}
+
+	return session, nil
 }

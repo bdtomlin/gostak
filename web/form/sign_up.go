@@ -2,6 +2,7 @@ package form
 
 import (
 	"fmt"
+	"log/slog"
 	"net/mail"
 	"strings"
 
@@ -15,12 +16,13 @@ type SignUp struct {
 	LastName       string
 	Email          string
 	Password       string
-	HashedPassword string `schema:"-"`
-	UserRepo       model.UserRepo
+	HashedPassword string            `schema:"-"`
+	UserRepo       model.UserRepo    `schema:"-"`
+	SessionRepo    model.SessionRepo `schema:"-"`
 }
 
 func NewSignUp() *SignUp {
-	su := &SignUp{
+	su := SignUp{
 		Form: NewForm(),
 	}
 	su.AddValidators(
@@ -30,7 +32,7 @@ func NewSignUp() *SignUp {
 		su.ValidateLastName,
 	)
 
-	return su
+	return &su
 }
 
 func (su *SignUp) ValidateEmail() {
@@ -82,22 +84,31 @@ func (su *SignUp) ValidateLastName() {
 	}
 }
 
-func (su *SignUp) Submit() error {
+func (su *SignUp) Submit() (*model.Session, error) {
 	if !su.IsValid() {
-		return fmt.Errorf("Invalid Sign Up")
+		return nil, fmt.Errorf("Invalid Sign Up")
 	}
-	err := su.UserRepo.InsertUser(&model.User{
+	user := model.User{
 		Email:          su.Email,
 		FirstName:      su.FirstName,
 		LastName:       su.LastName,
 		HashedPassword: su.HashedPassword,
-	})
+	}
+
+	err := su.UserRepo.InsertUser(&user)
 
 	if err != nil {
 		err = fmt.Errorf("form.SignUp.Submit: %w", err)
-		fmt.Println(err)
-		return err
+		slog.Error(err.Error())
+		return nil, err
 	}
 
-	return nil
+	session, err := su.SessionRepo.CreateSession(user.ID)
+	if err != nil {
+		err = fmt.Errorf("form.SignUp.Submit: %w", err)
+		slog.Error(err.Error())
+		return nil, err
+	}
+
+	return session, nil
 }

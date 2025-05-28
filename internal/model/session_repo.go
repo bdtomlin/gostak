@@ -7,6 +7,7 @@ import (
 type SessionRepo struct{}
 
 func (sr SessionRepo) CreateSession(userID uuid.UUID) (*Session, error) {
+	// 1. create session token
 	return nil, nil
 }
 

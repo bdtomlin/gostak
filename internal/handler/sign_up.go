@@ -15,16 +15,17 @@ func GetSignUp(w http.ResponseWriter, r *http.Request) {
 func PostSignUp(w http.ResponseWriter, r *http.Request) {
 	f := form.NewSignUp()
 
-	err := DecodeParams(f, r)
+	err := decodeParams(f, r)
 	if err != nil {
 		RenderError500(err, w, r)
 		return
 	}
 
-	err = f.Submit()
+	session, err := f.Submit()
 	if err != nil {
 		page.SignUpForm(f).Render(r.Context(), w)
 		return
 	}
-	Redirect(w, r, "/")
+	setSessionCookie(w, session)
+	redirect(w, r, "/")
 }

@@ -19,8 +19,8 @@ func Bytes(n int) ([]byte, error) {
 	return bytes, nil
 }
 
-func String(n int) (string, error) {
-	bytes, err := Bytes(n)
+func String(numBytes int) (string, error) {
+	bytes, err := Bytes(numBytes)
 	if err != nil {
 		return "", fmt.Errorf("String: %w", err)
 	}
