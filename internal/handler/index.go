@@ -12,5 +12,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		Error404(w, r)
 		return
 	}
+
 	page.Index().Render(r.Context(), w)
 }
