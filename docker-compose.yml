@@ -1,0 +1,32 @@
+version: "3.3"
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /app/entrypoint.sh
+    depends_on:
+      - "db"
+    volumes:
+      # Mount current directory as shared volume for development so that changes
+      # made to local code will reflect on app running on container.
+      - .:/app
+    ports:
+      - "8888:8888"
+    env_file: ".env"
+    environment:
+      # Used in database.yml to tell Rails where the database is.
+      DB_HOST: db
+
+  # Run MySQL database
+  db:
+    image: docker.io/library/postgres:17.5
+    volumes:
+      - db_data:/var/lib/gostak2_data
+    ports:
+      - "5432:5432"
+    env_file: ".env"
+
+# All named volumes referenced by services must be listed here.
+volumes:
+  db_data:

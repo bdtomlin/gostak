@@ -14,9 +14,11 @@ var DB *sqlx.DB
 // Make sure to call defer model.Init()() in main
 func Init() func() {
 	dbConnString := fmt.Sprintf(
-		"user=%v dbname=%v password=%v sslmode=%v",
-		os.Getenv("POSTGRESQL_USERNAME"), os.Getenv("DATABASE_NAME"),
-		os.Getenv("PGPASSWORD"),
+		"host=%v user=%v dbname=%v password=%v sslmode=%v",
+		os.Getenv("DB_HOST"),
+		os.Getenv("POSTGRES_USER"),
+		os.Getenv("POSTGRES_DB"),
+		os.Getenv("POSTGRES_PASSWORD"),
 		os.Getenv("DBSSLMODE"),
 	)
 	DB = sqlx.MustConnect("postgres", dbConnString)

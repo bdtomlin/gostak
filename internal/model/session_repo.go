@@ -43,8 +43,46 @@ func (sr SessionRepo) CreateSession(userID uuid.UUID) (*Session, error) {
 	return &session, nil
 }
 
-func (sr SessionRepo) GetSessionUser(userID uuid.UUID, token string) (*User, error) {
-	return nil, nil
+func (sr SessionRepo) GetSessionUser(userID *uuid.UUID, token string) (*User, error) {
+	tokenHash := sr.hash(token)
+	user := User{}
+	err := DB.Get(&user, `
+		select users.* from users
+		inner join sessions on users.id = sessions.user_id
+		where sessions.user_id = $1
+		and sessions.token_hash = $2
+		`, userID.String(), tokenHash)
+	if err != nil {
+		return nil, fmt.Errorf("repo.GetSessionUser: %w", err)
+	}
+
+	return &user, nil
+}
+
+func (sr SessionRepo) DeleteSession(userID *uuid.UUID, token string) error {
+	tokenHash := sr.hash(token)
+	_, err := DB.Exec(`
+		delete from sessions
+		where user_id = $1
+		and token_hash = $2
+		`, userID.String(), tokenHash)
+	if err != nil {
+		return fmt.Errorf("DeleteSession: %w", err)
+	}
+
+	return nil
+}
+
+func (sr SessionRepo) DeleteAllUserSessions(userID *uuid.UUID) error {
+	_, err := DB.Exec(`
+		delete from sessions
+		where user_id = $1
+		`, userID.String())
+	if err != nil {
+		return fmt.Errorf("DeleteAllUserSession: %w", err)
+	}
+
+	return nil
 }
 
 func (ss *SessionRepo) hash(token string) string {
