@@ -22,7 +22,7 @@ services:
   db:
     image: docker.io/library/postgres:17.5
     volumes:
-      - db_data:/var/lib/gostak2_data
+      - db_data:/var/lib/gostak_data
     ports:
       - "5432:5432"
     env_file: ".env"
